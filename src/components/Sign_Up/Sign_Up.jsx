@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import {Button,FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton} from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import theme from '../../customTheme';
 
 const Sign_Up = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -159,7 +160,7 @@ const Sign_Up = () => {
                                 <div>{formik.errors.confirmpassword}</div>
                             ) : null}
                         </div>
-                    <Button variant="contained" type="submit">
+                    <Button variant="contained" type="submit" style={{ backgroundColor: theme.palette.primary.main, color: theme.palette.text.secondary, margin: '1em'}}>
                         Valider
                     </Button>
                 </form>
