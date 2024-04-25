@@ -1,17 +1,9 @@
 import { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
+import {Button,FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton} from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import theme from '../../customTheme';
 
 const Sign_Up = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -65,52 +57,56 @@ const Sign_Up = () => {
         >
             {formik => (
                 <form onSubmit={formik.handleSubmit}>
-                    <Box
-                        component="form"
-                        sx={{
-                            '& .MuiTextField-root': { m: 1, width: '25ch' },
-                        }}
-                        noValidate
-                        autoComplete="off"
-                    >
                         <div>
-                            <TextField
-                                required
-                                id="firstname"
-                                label="Prénom"
-                                type="text"
-                                {...formik.getFieldProps('firstname')}
-                            />
+                            <FormControl sx={{ m: 1 }} variant="outlined">
+                            <InputLabel htmlFor="firstname">Prénom</InputLabel>
+                                <OutlinedInput
+                                    required
+                                    id="firstname"
+                                    label="Prénom"
+                                    type="text"
+                                    {...formik.getFieldProps('firstname')}
+                                />
+                            </FormControl>
                             {formik.touched.firstname && formik.errors.firstname ? (
                                 <div>{formik.errors.firstname}</div>
                             ) : null}
-                            <TextField
+                            <FormControl sx={{ m: 1 }} variant="outlined">
+                            <InputLabel htmlFor="lastname">Nom</InputLabel>
+                            <OutlinedInput
                                 required
                                 id="lastname"
                                 label="Nom"
                                 type="text"
                                 {...formik.getFieldProps('lastname')}
                             />
+                            </FormControl>
                             {formik.touched.lastname && formik.errors.lastname ? (
                                 <div>{formik.errors.lastname}</div>
                             ) : null}
-                            <TextField
+                            <FormControl sx={{ m: 1 }} variant="outlined">
+                            <InputLabel htmlFor="pseudo">Pseudo</InputLabel>
+                            <OutlinedInput
                                 required
                                 id="pseudo"
                                 label="Pseudo"
                                 type="text"
                                 {...formik.getFieldProps('pseudo')}
                             />
+                            </FormControl>
                             {formik.touched.pseudo && formik.errors.pseudo ? (
                                 <div>{formik.errors.pseudo}</div>
                             ) : null}
-                            <TextField
-                                required
-                                id="email"
-                                label="Email"
-                                type="email"
-                                {...formik.getFieldProps('email')}
-                            />
+                            <FormControl sx={{ m: 1 }} variant="outlined">
+                            <InputLabel htmlFor="email">Email</InputLabel>
+                                <OutlinedInput
+                                    required
+                                    id="email"
+                                    label="Email"
+                                    type="email"
+                                    {...formik.getFieldProps('email')}
+                                />
+                            </FormControl>
                             {formik.touched.email && formik.errors.email ? (
                                 <div>{formik.errors.email}</div>
                             ) : null}
@@ -163,7 +159,6 @@ const Sign_Up = () => {
                                 <div>{formik.errors.confirmpassword}</div>
                             ) : null}
                         </div>
-                    </Box>
                     <Button variant="contained" type="submit">
                         Valider
                     </Button>
