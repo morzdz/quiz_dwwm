@@ -19,14 +19,10 @@ const Sign_In = () => {
     return (
         <Formik
             initialValues={{
-                username: '',
                 email: '',
                 password: '',
             }}
             validationSchema={Yup.object({
-                username: Yup.string()
-                    .max(20, 'Limité à 20 caractères ou moins')
-                    .required('Requis'),
                 email: Yup.string()
                     .email('Adresse email invalide')
                     .required('Requis'),
@@ -46,24 +42,7 @@ const Sign_In = () => {
             }}
         >
             {formik => (
-                <form id="signup-form" style={{backgroundColor: theme.palette.common.white}} onSubmit={formik.handleSubmit}>
-                    
-                    <div>
-                        <FormControl id='input' sx={{ m: 1 }} variant="outlined">
-                            <InputLabel id="label" htmlFor="username">Nom d'utilisateur</InputLabel>
-                            <OutlinedInput
-                                required
-                                id="username"
-                                label="Nom d'utilisateur"
-                                type="text"
-                                {...formik.getFieldProps('username')}
-                            />
-                        </FormControl>
-                        {formik.touched.username && formik.errors.username ? (
-                            <div id='error' style={{color: theme.palette.accent.main, fontWeight: 'bold'}}>{formik.errors.username}</div>
-                        ) : null}
-                    </div>
-
+                <form id="signin-form" style={{backgroundColor: theme.palette.common.white}} onSubmit={formik.handleSubmit}>
                     <div>
                         <FormControl id='input' sx={{ m: 1 }} variant="outlined">
                             <InputLabel id="label" htmlFor="email">Email</InputLabel>
@@ -114,7 +93,7 @@ const Sign_In = () => {
                         type="submit" 
                         sx={{
                             backgroundColor: theme.palette.background.default,
-                            border: `1px solid ${theme.palette.primary.main}`,
+                            border: `2px solid ${theme.palette.primary.main}`,
                             color: theme.palette.primary.main,
                             transition: 'background-color 0.3s, color 0.3s',
                             '&:hover': {

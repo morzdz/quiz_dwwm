@@ -22,25 +22,8 @@ const theme = createTheme({
         secondary: {
         main: colors.turquoise,
         },
-        error: {
+        accent: {
         main: colors.yellow,
-        },
-        warning: {
-        main: colors.yellow,
-        },
-        success: {
-        main: colors.turquoise,
-        },
-        info: {
-        main: colors.darkBlue,
-        },
-        text: {
-        primary: colors.black,
-        secondary: colors.white,
-        },
-        background: {
-        default: colors.white,
-        paper: colors.white,
         },
     },
 });
