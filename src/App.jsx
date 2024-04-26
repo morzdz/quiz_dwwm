@@ -10,7 +10,7 @@ function App() {
     <>
       <div>
         <Header />
-        <h1>Quizzzz</h1>
+        <h1>Quizz</h1>
       </div>
       <div>
         <Footer />
