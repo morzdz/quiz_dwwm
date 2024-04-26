@@ -9,10 +9,8 @@ import './Sign_In.css';
 
 const Sign_In = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
@@ -21,20 +19,11 @@ const Sign_In = () => {
     return (
         <Formik
             initialValues={{
-                firstname: '',
-                lastname: '',
                 username: '',
                 email: '',
                 password: '',
-                confirmpassword: ''
             }}
             validationSchema={Yup.object({
-                firstname: Yup.string()
-                    .max(15, 'Limité à 15 caractères ou moins')
-                    .required('Requis'),
-                lastname: Yup.string()
-                    .max(20, 'Limité à 20 caractères ou moins')
-                    .required('Requis'),
                 username: Yup.string()
                     .max(20, 'Limité à 20 caractères ou moins')
                     .required('Requis'),
@@ -48,9 +37,6 @@ const Sign_In = () => {
                         'Doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre, sans caractères spéciaux'
                     )
                     .required('Requis'),
-                confirmpassword: Yup.string()
-                    .oneOf([Yup.ref('password'), null], 'Les mots de passe ne correspondent pas')
-                    .required('Requis')
             })}
             onSubmit={(values, { setSubmitting }) => {
                 setTimeout(() => {
@@ -61,38 +47,7 @@ const Sign_In = () => {
         >
             {formik => (
                 <form id="signup-form" style={{backgroundColor: theme.palette.common.white}} onSubmit={formik.handleSubmit}>
-                    <div>
-                        <FormControl id='input' sx={{ m: 1 }} variant="outlined">
-                            <InputLabel id="label" htmlFor="firstname">Prénom</InputLabel>
-                            <OutlinedInput
-                                required
-                                id="firstname"
-                                label="Prénom"
-                                type="text"
-                                {...formik.getFieldProps('firstname')}
-                            />
-                        </FormControl>
-                        {formik.touched.firstname && formik.errors.firstname ? (
-                            <div id='error' style={{color: theme.palette.accent.main, fontWeight: 'bold'}}>{formik.errors.firstname}</div>
-                        ) : null}
-                    </div>
-
-                    <div>
-                        <FormControl id='input' sx={{ m: 1 }} variant="outlined">
-                            <InputLabel id="label" htmlFor="lastname">Nom</InputLabel>
-                            <OutlinedInput
-                                required
-                                id="lastname"
-                                label="Nom"
-                                type="text"
-                                {...formik.getFieldProps('lastname')}
-                            />
-                        </FormControl>
-                        {formik.touched.lastname && formik.errors.lastname ? (
-                            <div id='error' style={{color: theme.palette.accent.main, fontWeight: 'bold'}}>{formik.errors.lastname}</div>
-                        ) : null}
-                    </div>
-
+                    
                     <div>
                         <FormControl id='input' sx={{ m: 1 }} variant="outlined">
                             <InputLabel id="label" htmlFor="username">Nom d'utilisateur</InputLabel>
@@ -150,33 +105,6 @@ const Sign_In = () => {
                         </FormControl>
                         {formik.touched.password && formik.errors.password ? (
                             <div id='error' style={{color: theme.palette.accent.main, fontWeight: 'bold'}}>{formik.errors.password}</div>
-                        ) : null}
-                    </div>
-
-                    <div>
-                        <FormControl id='input' sx={{ m: 1 }} variant="outlined">
-                            <InputLabel id="label" htmlFor="confirmpassword">Confirmez le mot de passe</InputLabel>
-                            <OutlinedInput
-                                required
-                                id="confirmpassword"
-                                type={showConfirmPassword ? 'text' : 'password'}
-                                {...formik.getFieldProps('confirmpassword')}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowConfirmPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                        >
-                                            {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
-                        </FormControl>
-                        {formik.touched.confirmpassword && formik.errors.confirmpassword ? (
-                            <div id='error' style={{color: theme.palette.accent.main, fontWeight: 'bold'}}>{formik.errors.confirmpassword}</div>
                         ) : null}
                     </div>
 
