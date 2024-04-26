@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles'
+import { createTheme } from '@mui/material/styles';
 
 const colors = {
     white: '#FEFDFC',
@@ -12,19 +12,18 @@ const colors = {
 const theme = createTheme({
     palette: {
         common: {
-        white: colors.white,
-        black: colors.black,
+            white: colors.white,
+            black: colors.black,
         },
         primary: {
-        main: colors.darkBlue,
+            main: colors.darkBlue,
         },
         secondary: {
-        main: colors.turquoise,
+            main: colors.turquoise,
         },
         accent: {
-        main: colors.yellow,
-        },
-        
+            main: colors.yellow,
+        }
     },
 });
 
