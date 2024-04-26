@@ -6,6 +6,7 @@ const colors = {
     darkBlue: '#002626',
     turquoise: '#0E4749',
     yellow: '#FFDB58',
+
 };
 
 const theme = createTheme({
