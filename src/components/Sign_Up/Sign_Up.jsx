@@ -73,7 +73,7 @@ const Sign_Up = () => {
                             />
                         </FormControl>
                         {formik.touched.firstname && formik.errors.firstname ? (
-                            <div id='error'>{formik.errors.firstname}</div>
+                            <div id='error' style={{color: theme.palette.accent.main, fontWeight: 'bold'}}>{formik.errors.firstname}</div>
                         ) : null}
                     </div>
 
@@ -89,7 +89,7 @@ const Sign_Up = () => {
                             />
                         </FormControl>
                         {formik.touched.lastname && formik.errors.lastname ? (
-                            <div id='error'>{formik.errors.lastname}</div>
+                            <div id='error' style={{color: theme.palette.accent.main, fontWeight: 'bold'}}>{formik.errors.lastname}</div>
                         ) : null}
                     </div>
 
@@ -105,7 +105,7 @@ const Sign_Up = () => {
                             />
                         </FormControl>
                         {formik.touched.pseudo && formik.errors.pseudo ? (
-                            <div id='error'>{formik.errors.pseudo}</div>
+                            <div id='error' style={{color: theme.palette.accent.main, fontWeight: 'bold'}}>{formik.errors.pseudo}</div>
                         ) : null}
                     </div>
 
@@ -121,7 +121,7 @@ const Sign_Up = () => {
                             />
                         </FormControl>
                         {formik.touched.email && formik.errors.email ? (
-                            <div id='error'>{formik.errors.email}</div>
+                            <div id='error' style={{color: theme.palette.accent.main, fontWeight: 'bold'}}>{formik.errors.email}</div>
                         ) : null}
                     </div>
 
@@ -149,7 +149,7 @@ const Sign_Up = () => {
                             />
                         </FormControl>
                         {formik.touched.password && formik.errors.password ? (
-                            <div id='error'>{formik.errors.password}</div>
+                            <div id='error' style={{color: theme.palette.accent.main, fontWeight: 'bold'}}>{formik.errors.password}</div>
                         ) : null}
                     </div>
 
@@ -176,7 +176,7 @@ const Sign_Up = () => {
                             />
                         </FormControl>
                         {formik.touched.confirmpassword && formik.errors.confirmpassword ? (
-                            <div id='error'>{formik.errors.confirmpassword}</div>
+                            <div id='error' style={{color: theme.palette.accent.main, fontWeight: 'bold'}}>{formik.errors.confirmpassword}</div>
                         ) : null}
                     </div>
 
