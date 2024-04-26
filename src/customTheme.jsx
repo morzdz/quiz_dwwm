@@ -1,6 +1,5 @@
-import { createTheme } from '@mui/material/styles'
+import { createTheme } from '@mui/material/styles';
 
-// Définir les couleurs
 const colors = {
     white: '#FEFDFC',
     black: '#34302E',
@@ -9,39 +8,21 @@ const colors = {
     yellow: '#FFDB58',
 };
 
-// Créer le thème MUI
 const theme = createTheme({
     palette: {
         common: {
-        white: colors.white,
-        black: colors.black,
+            white: colors.white,
+            black: colors.black,
         },
         primary: {
-        main: colors.darkBlue,
+            main: colors.darkBlue,
         },
         secondary: {
-        main: colors.turquoise,
+            main: colors.turquoise,
         },
-        error: {
-        main: colors.yellow,
-        },
-        warning: {
-        main: colors.yellow,
-        },
-        success: {
-        main: colors.turquoise,
-        },
-        info: {
-        main: colors.darkBlue,
-        },
-        text: {
-        primary: colors.black,
-        secondary: colors.white,
-        },
-        background: {
-        default: colors.white,
-        paper: colors.white,
-        },
+        accent: {
+            main: colors.yellow,
+        }
     },
 });
 

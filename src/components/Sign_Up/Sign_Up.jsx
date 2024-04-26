@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import {Button,FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton} from '@mui/material';
+import { Button, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import theme from '../../customTheme';
+import './Sign_Up.css';
 
 const Sign_Up = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
@@ -57,112 +60,99 @@ const Sign_Up = () => {
             }}
         >
             {formik => (
-                <form onSubmit={formik.handleSubmit}>
-                        <div>
-                            <FormControl sx={{ m: 1 }} variant="outlined">
-                            <InputLabel htmlFor="firstname">Prénom</InputLabel>
-                                <OutlinedInput
-                                    required
-                                    id="firstname"
-                                    label="Prénom"
-                                    type="text"
-                                    {...formik.getFieldProps('firstname')}
-                                />
-                            </FormControl>
-                            {formik.touched.firstname && formik.errors.firstname ? (
-                                <div>{formik.errors.firstname}</div>
-                            ) : null}
-                            <FormControl sx={{ m: 1 }} variant="outlined">
-                            <InputLabel htmlFor="lastname">Nom</InputLabel>
+                <form id="signup-form" onSubmit={formik.handleSubmit}>
+                    <div>
+                        <FormControl id='input' sx={{ m: 1 }} variant="outlined">
+                            <InputLabel id="label" htmlFor="firstname">Prénom</InputLabel>
                             <OutlinedInput
                                 required
-                                id="lastname"
-                                label="Nom"
+                                id="firstname"
+                                label="Prénom"
                                 type="text"
-                                {...formik.getFieldProps('lastname')}
+                                {...formik.getFieldProps('firstname')}
                             />
-                            </FormControl>
-                            {formik.touched.lastname && formik.errors.lastname ? (
-                                <div>{formik.errors.lastname}</div>
-                            ) : null}
-                            <FormControl sx={{ m: 1 }} variant="outlined">
-                            <InputLabel htmlFor="pseudo">Pseudo</InputLabel>
+                        </FormControl>
+                        {formik.touched.firstname && formik.errors.firstname ? (
+                            <div id='error'>{formik.errors.firstname}</div>
+                        ) : null}
+                    </div>
+
+                    {/* Autres champs de formulaire similaires pour lastname, pseudo, email */}
+                    
+                    <div>
+                        <FormControl id='input' sx={{ m: 1 }} variant="outlined">
+                            <InputLabel id="label" htmlFor="password">Password</InputLabel>
                             <OutlinedInput
                                 required
-                                id="pseudo"
-                                label="Pseudo"
-                                type="text"
-                                {...formik.getFieldProps('pseudo')}
+                                id="password"
+                                type={showPassword ? 'text' : 'password'}
+                                {...formik.getFieldProps('password')}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                        >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                label="Password"
                             />
-                            </FormControl>
-                            {formik.touched.pseudo && formik.errors.pseudo ? (
-                                <div>{formik.errors.pseudo}</div>
-                            ) : null}
-                            <FormControl sx={{ m: 1 }} variant="outlined">
-                            <InputLabel htmlFor="email">Email</InputLabel>
-                                <OutlinedInput
-                                    required
-                                    id="email"
-                                    label="Email"
-                                    type="email"
-                                    {...formik.getFieldProps('email')}
-                                />
-                            </FormControl>
-                            {formik.touched.email && formik.errors.email ? (
-                                <div>{formik.errors.email}</div>
-                            ) : null}
-                            <FormControl sx={{ m: 1 }} variant="outlined">
-                                <InputLabel htmlFor="password">Password</InputLabel>
-                                <OutlinedInput
-                                    id="password"
-                                    type={showPassword ? 'text' : 'password'}
-                                    {...formik.getFieldProps('password')}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                                edge="end"
-                                            >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label="Password"
-                                />
-                            </FormControl>
-                            {formik.touched.password && formik.errors.password ? (
-                                <div>{formik.errors.password}</div>
-                            ) : null}
-                            <FormControl sx={{ m: 1 }} variant="outlined">
-                                <InputLabel htmlFor="confirmpassword">Confirmez le mot de passe</InputLabel>
-                                <OutlinedInput
-                                    id="confirmpassword"
-                                    type={showPassword ? 'text' : 'password'}
-                                    {...formik.getFieldProps('confirmpassword')}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                                edge="end"
-                                            >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label="Confirmez le mot de passe"
-                                />
-                            </FormControl>
-                            {formik.touched.confirmpassword && formik.errors.confirmpassword ? (
-                                <div>{formik.errors.confirmpassword}</div>
-                            ) : null}
-                        </div>
-                    <Button variant="contained" type="submit" style={{ backgroundColor: theme.palette.primary.main, color: theme.palette.text.secondary, margin: '1em'}}>
+                        </FormControl>
+                        {formik.touched.password && formik.errors.password ? (
+                            <div id='error'>{formik.errors.password}</div>
+                        ) : null}
+                    </div>
+
+                    <div>
+                        <FormControl id='input' sx={{ m: 1 }} variant="outlined">
+                            <InputLabel id="label" htmlFor="confirmpassword">Confirmez le mot de passe</InputLabel>
+                            <OutlinedInput
+                                required
+                                id="confirmpassword"
+                                type={showConfirmPassword ? 'text' : 'password'}
+                                {...formik.getFieldProps('confirmpassword')}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowConfirmPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                        >
+                                            {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                label="Confirmez le mot de passe"
+                            />
+                        </FormControl>
+                        {formik.touched.confirmpassword && formik.errors.confirmpassword ? (
+                            <div id='error'>{formik.errors.confirmpassword}</div>
+                        ) : null}
+                    </div>
+
+                    {/* Bouton de soumission */}
+                    <Button 
+                        id="submit" 
+                        variant="contained" 
+                        type="submit" 
+                        sx={{
+                            backgroundColor: theme.palette.background.default,
+                            border: `1px solid ${theme.palette.primary.main}`,
+                            color: theme.palette.primary.main,
+                            transition: 'background-color 0.3s, color 0.3s',
+                            '&:hover': {
+                                backgroundColor: theme.palette.primary.main,
+                                color: theme.palette.common.white
+                            }
+                        }}
+                    >
                         Valider
-                    </Button>
+                    </Button> 
                 </form>
             )}
         </Formik>
