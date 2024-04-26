@@ -23,7 +23,7 @@ const Sign_Up = () => {
             initialValues={{
                 firstname: '',
                 lastname: '',
-                pseudo: '',
+                username: '',
                 email: '',
                 password: '',
                 confirmpassword: ''
@@ -35,7 +35,7 @@ const Sign_Up = () => {
                 lastname: Yup.string()
                     .max(20, 'Limité à 20 caractères ou moins')
                     .required('Requis'),
-                pseudo: Yup.string()
+                username: Yup.string()
                     .max(20, 'Limité à 20 caractères ou moins')
                     .required('Requis'),
                 email: Yup.string()
@@ -95,17 +95,17 @@ const Sign_Up = () => {
 
                     <div>
                         <FormControl id='input' sx={{ m: 1 }} variant="outlined">
-                            <InputLabel id="label" htmlFor="pseudo">Pseudo</InputLabel>
+                            <InputLabel id="label" htmlFor="username">Nom d'utilisateur</InputLabel>
                             <OutlinedInput
                                 required
-                                id="pseudo"
-                                label="Pseudo"
+                                id="username"
+                                label="Nom d'utilisateur"
                                 type="text"
-                                {...formik.getFieldProps('pseudo')}
+                                {...formik.getFieldProps('username')}
                             />
                         </FormControl>
-                        {formik.touched.pseudo && formik.errors.pseudo ? (
-                            <div id='error' style={{color: theme.palette.accent.main, fontWeight: 'bold'}}>{formik.errors.pseudo}</div>
+                        {formik.touched.username && formik.errors.username ? (
+                            <div id='error' style={{color: theme.palette.accent.main, fontWeight: 'bold'}}>{formik.errors.username}</div>
                         ) : null}
                     </div>
 
@@ -186,7 +186,7 @@ const Sign_Up = () => {
                         type="submit" 
                         sx={{
                             backgroundColor: theme.palette.background.default,
-                            border: `1px solid ${theme.palette.primary.main}`,
+                            border: `2px solid ${theme.palette.primary.main}`,
                             color: theme.palette.primary.main,
                             transition: 'background-color 0.3s, color 0.3s',
                             '&:hover': {

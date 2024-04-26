@@ -1,0 +1,44 @@
+/* Sign_Up.css */
+
+#signup-form {
+    box-shadow: 4px 4px 10px 4px rgba(52,46,48,0.2);
+    border-radius: 16px;
+    max-width: 640px;
+    margin: auto;
+    padding: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#signup-inputs {
+    justify-content: center;
+}
+
+#input {
+    width: 300px;
+}
+
+#error {
+    padding-left: 8px;
+}
+
+#submit {
+    width: 150px;
+    margin-top: 2em;
+    padding: 1em 0;
+    border-radius: 30px;
+}
+
+#input .MuiOutlinedInput-notchedOutline .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(0, 38, 38, 0.23);
+}
+
+#input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #002626;
+}
+
+#input .MuiInputLabel-root.Mui-focused, #input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    color: #0E4749;
+    border-color: #0E4749;
+}
