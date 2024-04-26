@@ -186,7 +186,7 @@ const Sign_Up = () => {
                         type="submit" 
                         sx={{
                             backgroundColor: theme.palette.background.default,
-                            border: `1px solid ${theme.palette.primary.main}`,
+                            border: `2px solid ${theme.palette.primary.main}`,
                             color: theme.palette.primary.main,
                             transition: 'background-color 0.3s, color 0.3s',
                             '&:hover': {
