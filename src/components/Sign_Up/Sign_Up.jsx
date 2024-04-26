@@ -60,7 +60,7 @@ const Sign_Up = () => {
             }}
         >
             {formik => (
-                <form id="signup-form" onSubmit={formik.handleSubmit}>
+                <form id="signup-form" style={{backgroundColor: theme.palette.common.white}} onSubmit={formik.handleSubmit}>
                     <div>
                         <FormControl id='input' sx={{ m: 1 }} variant="outlined">
                             <InputLabel id="label" htmlFor="firstname">Prénom</InputLabel>
@@ -77,8 +77,54 @@ const Sign_Up = () => {
                         ) : null}
                     </div>
 
-                    {/* Autres champs de formulaire similaires pour lastname, pseudo, email */}
-                    
+                    <div>
+                        <FormControl id='input' sx={{ m: 1 }} variant="outlined">
+                            <InputLabel id="label" htmlFor="lastname">Nom</InputLabel>
+                            <OutlinedInput
+                                required
+                                id="lastname"
+                                label="Nom"
+                                type="text"
+                                {...formik.getFieldProps('lastname')}
+                            />
+                        </FormControl>
+                        {formik.touched.lastname && formik.errors.lastname ? (
+                            <div id='error'>{formik.errors.lastname}</div>
+                        ) : null}
+                    </div>
+
+                    <div>
+                        <FormControl id='input' sx={{ m: 1 }} variant="outlined">
+                            <InputLabel id="label" htmlFor="pseudo">Pseudo</InputLabel>
+                            <OutlinedInput
+                                required
+                                id="pseudo"
+                                label="Pseudo"
+                                type="text"
+                                {...formik.getFieldProps('pseudo')}
+                            />
+                        </FormControl>
+                        {formik.touched.pseudo && formik.errors.pseudo ? (
+                            <div id='error'>{formik.errors.pseudo}</div>
+                        ) : null}
+                    </div>
+
+                    <div>
+                        <FormControl id='input' sx={{ m: 1 }} variant="outlined">
+                            <InputLabel id="label" htmlFor="email">Email</InputLabel>
+                            <OutlinedInput
+                                required
+                                id="email"
+                                label="Email"
+                                type="email"
+                                {...formik.getFieldProps('email')}
+                            />
+                        </FormControl>
+                        {formik.touched.email && formik.errors.email ? (
+                            <div id='error'>{formik.errors.email}</div>
+                        ) : null}
+                    </div>
+
                     <div>
                         <FormControl id='input' sx={{ m: 1 }} variant="outlined">
                             <InputLabel id="label" htmlFor="password">Password</InputLabel>
@@ -127,7 +173,6 @@ const Sign_Up = () => {
                                         </IconButton>
                                     </InputAdornment>
                                 }
-                                label="Confirmez le mot de passe"
                             />
                         </FormControl>
                         {formik.touched.confirmpassword && formik.errors.confirmpassword ? (
@@ -135,7 +180,6 @@ const Sign_Up = () => {
                         ) : null}
                     </div>
 
-                    {/* Bouton de soumission */}
                     <Button 
                         id="submit" 
                         variant="contained" 
