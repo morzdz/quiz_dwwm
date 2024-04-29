@@ -20,6 +20,7 @@ function Accueil() {
             textAlign: "center",
             color: "#34302E",
             fontFamily: "ABeeZee",
+            marginTop:"50px",
           }}
         >
           Que vous soyez un débutant curieux ou un professionnel expérimenté,
@@ -40,6 +41,7 @@ function Accueil() {
           justifyContent: "center",
           padding: "2em",
           gap: "100px",
+          marginTop:"50px",
         }}
       >
         <Card variant="outlined" sx={{ bgcolor: '#002626' }}>
