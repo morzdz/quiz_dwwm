@@ -1,3 +1,6 @@
+
+import './App.css';
+import Accueil from './Accueil/Accueil.jsx';
 import Ressources from './Ressources/Ressources.jsx';
 // import { useState } from "react";
 //import Sign_Up from './components/Sign_Up/Sign_Up'
@@ -7,10 +10,12 @@ import Header from "./components/Header/Header.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 
 
-function App() {
-  //const [count, setCount] = useState(0)
 
+function App() {
   return (
+    <div>
+      <Accueil />
+    </div>
     <Ressources />
   )
     <>
