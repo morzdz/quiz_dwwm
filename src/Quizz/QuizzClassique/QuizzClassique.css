@@ -1,0 +1,13 @@
+.custom-button {
+    margin: 40px;
+    width: auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    max-width: 200px;
+  }
+
+  .button-container {
+    margin: auto;
+  display: flex;
+  justify-content: center;
+}

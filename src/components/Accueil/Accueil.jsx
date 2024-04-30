@@ -1,6 +1,9 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
+import QuizzClassique from '../../Quizz/QuizzClassique/QuizzClassique.jsx';
+
 
 function Accueil() {
   return (
@@ -20,7 +23,7 @@ function Accueil() {
             textAlign: "center",
             color: "#34302E",
             fontFamily: "ABeeZee",
-            marginTop:"50px",
+            marginTop: "50px",
           }}
         >
           Que vous soyez un débutant curieux ou un professionnel expérimenté,
@@ -28,9 +31,9 @@ function Accueil() {
           défis, suivez votre progression et testez vos connaissances sur HTML,
           CSS, JavaScript, frameworks, bases de données et bien plus encore.
           <br /> Nos quiz sont soigneusement conçus pour couvrir tous les
-          aspects essentiels du développement web, <br />que vous souhaitiez
-          consolider vos bases, explorer de nouveaux concepts ou vous préparer à
-          un entretien.
+          aspects essentiels du développement web, <br />
+          que vous souhaitiez consolider vos bases, explorer de nouveaux
+          concepts ou vous préparer à un entretien.
         </p>
       </div>
       <div
@@ -41,10 +44,10 @@ function Accueil() {
           justifyContent: "center",
           padding: "2em",
           gap: "100px",
-          marginTop:"50px",
+          marginTop: "50px",
         }}
       >
-        <Card variant="outlined" sx={{ bgcolor: '#002626' }}>
+        <Card variant="outlined" sx={{ bgcolor: "#002626" }}>
           <CardContent>
             <h2
               style={{
@@ -66,24 +69,26 @@ function Accueil() {
               questions parmi tous les thèmes
             </p>
             <div style={{ textAlign: "center" }}>
-              <Button
-                variant="contained"
-                sx={{
-                  bgcolor: "#0E4749",
-                  color: "white",
-                  "&:hover": {
-                    bgcolor: "white",
-                    color: '#002626'
-                  },
-                }}
-              >
-                Lancer le quizz
-              </Button>
+              <Link to="/QuizzClassique">
+                <Button
+                  variant="contained"
+                  sx={{
+                    bgcolor: "#0E4749",
+                    color: "white",
+                    "&:hover": {
+                      bgcolor: "white",
+                      color: "#002626",
+                    },
+                  }}
+                >
+                  Lancer le quizz
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
 
-        <Card variant="outlined" sx={{ bgcolor: '#002626' }}>
+        <Card variant="outlined" sx={{ bgcolor: "#002626" }}>
           <CardContent>
             <h2
               style={{
@@ -101,7 +106,8 @@ function Accueil() {
                 fontFamily: "ABeeZee",
               }}
             >
-              Personnalisez votre quiz en choisissant parmi les thèmes et votre niveau de compréhension pour une meilleure révision.
+              Personnalisez votre quiz en choisissant parmi les thèmes et votre
+              niveau de compréhension pour une meilleure révision.
             </p>
             <div style={{ textAlign: "center" }}>
               <Button
@@ -111,7 +117,7 @@ function Accueil() {
                   color: "white",
                   "&:hover": {
                     bgcolor: "white",
-                    color: '#002626'
+                    color: "#002626",
                   },
                 }}
               >
