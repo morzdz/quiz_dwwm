@@ -98,6 +98,7 @@ const Sign_Up = () => {
                             <InputLabel id="label" htmlFor="username">Nom d'utilisateur</InputLabel>
                             <OutlinedInput
                                 required
+                                autoComplete='off'
                                 id="username"
                                 label="Nom d'utilisateur"
                                 type="text"
@@ -127,7 +128,7 @@ const Sign_Up = () => {
 
                     <div>
                         <FormControl id='input' sx={{ m: 1 }} variant="outlined">
-                            <InputLabel id="label" htmlFor="password">Password</InputLabel>
+                            <InputLabel id="label" htmlFor="password">Mot de passe</InputLabel>
                             <OutlinedInput
                                 required
                                 id="password"
@@ -145,7 +146,7 @@ const Sign_Up = () => {
                                         </IconButton>
                                     </InputAdornment>
                                 }
-                                label="Password"
+                                label="Mot de passe"
                             />
                         </FormControl>
                         {formik.touched.password && formik.errors.password ? (
@@ -173,6 +174,7 @@ const Sign_Up = () => {
                                         </IconButton>
                                     </InputAdornment>
                                 }
+                                label="Confirmez le mot de passe"
                             />
                         </FormControl>
                         {formik.touched.confirmpassword && formik.errors.confirmpassword ? (

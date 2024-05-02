@@ -30,15 +30,10 @@
     border-radius: 30px;
 }
 
-#input .MuiOutlinedInput-notchedOutline .MuiOutlinedInput-notchedOutline {
-    border-color: rgba(0, 38, 38, 0.23);
-}
-
-#input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    border-color: #002626;
+#input .MuiOutlinedInput-notchedOutline {
+    border-color: #0E4749;
 }
 
 #input .MuiInputLabel-root.Mui-focused, #input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
     color: #0E4749;
-    border-color: #0E4749;
 }

@@ -17,7 +17,9 @@ const QuizzClassique = () => {
         <h1>Quizz classique</h1>
         <h2>Choisissez le nombre de questions :</h2>
         <div style={{ display: 'flex', textAlign: 'center', flexDirection: 'column' }}>
-          <Button variant="contained" className="custom-button" onClick={() => userChoice(20)}>20 questions</Button>
+          <Link to="/Quizz">
+            <Button variant="contained" className="custom-button" onClick={() => userChoice(20)}>20 questions</Button>
+          </Link>
           <Button variant="contained" className="custom-button" onClick={() => userChoice(50)}>50 questions</Button>
           <Button variant="contained" className="custom-button" onClick={() => userChoice(100)}>100 questions</Button>
           <Button variant="contained" className="custom-button" onClick={() => userChoice(150)}>150 questions</Button>

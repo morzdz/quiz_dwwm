@@ -10,6 +10,7 @@ import {Routes,Route} from "react-router-dom";
 import { BrowserRouter} from "react-router-dom";
 import { Link } from "react-router-dom";
 import QuizzClassique from './Quizz/QuizzClassique/QuizzClassique.jsx';
+import Quizz from './Quizz/Quizz/Quizz.jsx';
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/signup" element={<Sign_Up />} />
         <Route path="/signin" element={<Sign_In />} />
         <Route path="/QuizzClassique" element={<QuizzClassique />} /> 
+        <Route path="/Quizz" element={<Quizz />} />
       </Routes>
       <Footer />
     </BrowserRouter>
