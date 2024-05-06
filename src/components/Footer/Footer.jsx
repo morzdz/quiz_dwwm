@@ -16,7 +16,7 @@ const Footer = () => {
   ];
 
   const footerStyle = {
-    position: 'fixed',
+    position: 'sticky',
     bottom: 0,
     left: 0,
     width: '100%',
@@ -27,7 +27,7 @@ const Footer = () => {
   };
 
   const centerStyle = {
-    display: 'flex',
+    // display: 'flex',
     justifyContent: 'center',
   };
 

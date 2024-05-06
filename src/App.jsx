@@ -6,9 +6,11 @@ import Sign_Up from './components/Sign_Up/Sign_Up'
 import Sign_In from './components/Sign_In/Sign_In'
 import Header from "./components/Header/Header.jsx";
 import Footer from "./components/Footer/Footer.jsx";
+import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import {Routes,Route} from "react-router-dom";
 import { BrowserRouter} from "react-router-dom";
 import { Link } from "react-router-dom";
+import Quizz from './Quizz/Quizz/Quizz.jsx';
 import QuizzClassique from './Quizz/QuizzClassique/QuizzClassique.jsx';
 
 
@@ -21,11 +23,12 @@ function App() {
       <Header />
       <Routes>
       <Route path="/" element={<Accueil />} />
-        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/ressources" element={<Ressources />} />
         <Route path="/signup" element={<Sign_Up />} />
         <Route path="/signin" element={<Sign_In />} />
         <Route path="/QuizzClassique" element={<QuizzClassique />} /> 
+        <Route path="/Quizz" element={<Quizz />} />
       </Routes>
       <Footer />
     </BrowserRouter>
