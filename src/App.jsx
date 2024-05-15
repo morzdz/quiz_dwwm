@@ -12,6 +12,9 @@ import { BrowserRouter} from "react-router-dom";
 import { Link } from "react-router-dom";
 import Quizz from './Quizz/Quizz/Quizz.jsx';
 import QuizzClassique from './Quizz/QuizzClassique/QuizzClassique.jsx';
+import Quizzperso from "./Quizz/Quizzperso/Quizzperso.jsx";
+import Questionsquizzperso from "./Quizz/Quizzperso/Questionsquizzperso.jsx";
+import { QuizzProvider } from './contexts/QuizContext';
 
 
 
@@ -19,8 +22,10 @@ function App() {
   //const [count, setCount] = useState(0)
 
   return (
+    <QuizzProvider>
     <BrowserRouter>
       <Header />
+      <div id="content" style={{ minHeight: '100vh', overflow: 'auto' }}>
       <Routes>
       <Route path="/" element={<Accueil />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -28,10 +33,14 @@ function App() {
         <Route path="/signup" element={<Sign_Up />} />
         <Route path="/signin" element={<Sign_In />} />
         <Route path="/QuizzClassique" element={<QuizzClassique />} /> 
+        <Route path="/Quizzperso" element={<Quizzperso />} /> 
+        <Route path="/Questionsquizzperso" element={<Questionsquizzperso />} /> 
         <Route path="/Quizz" element={<Quizz />} />
       </Routes>
+      </div>
       <Footer />
     </BrowserRouter>
+    </QuizzProvider>
   );
 }
 

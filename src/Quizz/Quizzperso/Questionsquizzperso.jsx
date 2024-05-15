@@ -1,80 +1,75 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button, FormControl, OutlinedInput } from '@mui/material';
 import { QuizzContext } from '../../contexts/QuizContext';
-import './Quizz.css';
-import { quizz } from '../../data/Questions';
 
-const Quiz = () => {
+const QuestionsQuizzPerso = () => {
     const { maData, addOrUpdateResponse } = useContext(QuizzContext);
-    const { questions } = quizz;
-
+    const [filteredQuestions, setFilteredQuestions] = useState([]);
     const [activeQuestion, setActiveQuestion] = useState(0);
     const [userAnswer, setUserAnswer] = useState('');
     const [showResult, setShowResult] = useState(false);
     const [showValidateButton, setShowValidateButton] = useState(true);
     const [correctAnswer, setCorrectAnswer] = useState('');
-    const [scores, setScores] = useState(Array(quizz.questions.length).fill(0));
-    const [nextButtonDisabled, setNextButtonDisabled] = useState(true);
-    const [selectedEvaluationIndex, setSelectedEvaluationIndex] = useState(-1);
+    const [evalIndex, setEvalIndex] = useState(-1);
+    const [localResponses, setLocalResponses] = useState([]);
+    const [quizCompleted, setQuizCompleted] = useState(false);
 
     useEffect(() => {
-        setSelectedEvaluationIndex(0);
-    }, []);
+        const filtered = maData.responses.filter(response => response.evalIndex === 2);
+        setFilteredQuestions(filtered);
+    }, [maData]);
 
     const onClickValidate = () => {
         setShowValidateButton(false);
-        setCorrectAnswer(questions[activeQuestion].correctAnswer);
-    };
-
-    const handleSelectEvaluation = (index) => {
-        setSelectedEvaluationIndex(index);
-        handleScore(index);
-    };
-
-    const handleScore = (index) => {
-        setScores(prevScores => {
-            const newScores = [...prevScores];
-            newScores[activeQuestion] = index;
-            return newScores;
-        });
-        setNextButtonDisabled(false);
+        setCorrectAnswer(filteredQuestions[activeQuestion]?.questions.correctAnswer);
     };
 
     const onClickNext = () => {
-        setShowValidateButton(true);
-        setNextButtonDisabled(true);
-        if (activeQuestion !== questions.length - 1) {
+        if (activeQuestion !== filteredQuestions.length - 1) {
             setActiveQuestion(prev => prev + 1);
+            setShowValidateButton(true);
         } else {
             setShowResult(true);
+            setQuizCompleted(true); // Marquer le quizz comme terminé
         }
-        setUserAnswer('');
-        handleResponse(); // Appel de handleResponse pour mettre à jour maData.responses
-    };
-    
-    const handleResponse = () => {
-        const questionId = questions[activeQuestion].question_id;
-        const response = {
-            question_id: questionId,
-            user_id: 101,
+        const updatedResponses = [...localResponses];
+        updatedResponses[activeQuestion] = {
+            ...filteredQuestions[activeQuestion],
             text: userAnswer,
-            evalIndex: selectedEvaluationIndex,
-            questions: questions[activeQuestion]
+            evalIndex: evalIndex
         };
-
-        console.log("Nouvelle réponse :", response);
-        addOrUpdateResponse(response); // Mettre à jour le contexte global avec la nouvelle réponse
-        console.log("MaData après mise à jour :", maData);
+        setLocalResponses(updatedResponses);
+        setUserAnswer('');
+        setEvalIndex(-1);
     };
+
+    const handleSelectEvaluation = (index) => {
+        setEvalIndex(index);
+    };
+
+    useEffect(() => {
+        console.log("MaData après mise à jour :", maData);
+    }, [maData]);
+
+    useEffect(() => {
+        console.log("Local Responses après mise à jour :", localResponses);
+    }, [localResponses]);
+
+    useEffect(() => {
+        if (quizCompleted) {
+            // Mettre à jour maData.responses avec les données locales
+            const updatedResponses = maData.responses.map((response, index) => {
+                return localResponses[index] ? localResponses[index] : response;
+            });
+            addOrUpdateResponse(updatedResponses);
+        }
+    }, [quizCompleted]);
 
     return (
         <div className="quiz-container">
             {!showResult ? (
                 <div>
-                    <h2>{questions[activeQuestion].question}</h2>
-                    <div style={{ marginBottom: '1rem' }}>
-                        Question {activeQuestion + 1} sur {questions.length}
-                    </div>
+                    <h2>{filteredQuestions[activeQuestion]?.questions.question}</h2>
                     <FormControl id='input' style={{ width: '30rem' }}>
                         <OutlinedInput
                             autoComplete='off'
@@ -108,7 +103,7 @@ const Quiz = () => {
                                 {['Non acquis', 'Partiellement acquis', 'Acquis'].map((evaluation, index) => (
                                     <Button
                                         key={index}
-                                        id={selectedEvaluationIndex === index ? 'selected-answer' : ''}
+                                        id={evalIndex === index ? 'selected-answer' : ''}
                                         onClick={() => handleSelectEvaluation(index)}
                                         variant='outlined'
                                     >
@@ -122,7 +117,7 @@ const Quiz = () => {
                                     onClick={onClickNext}
                                     variant='outlined'
                                 >
-                                    {activeQuestion === questions.length - 1 ? 'Terminer' : 'Question suivante'}
+                                    {activeQuestion === filteredQuestions.length - 1 ? 'Terminer' : 'Question suivante'}
                                 </Button>
                             </div>
                         </div>
@@ -132,11 +127,11 @@ const Quiz = () => {
                 <div className="result">
                     <h3>Résultat</h3>
                     <p>
-                        Nombre total de questions : <span>{questions.length}</span>
+                        Nombre total de questions : <span>{filteredQuestions.length}</span>
                     </p>
                     <p>Votre résultat en détail :</p>
                     <ul>
-                        {maData.responses.map((response, index) => (
+                        {localResponses.map((response, index) => (
                             <li key={index}>
                                 <p>Question {index + 1} :</p>
                                 <p>Réponse : {response.text}</p>
@@ -150,10 +145,4 @@ const Quiz = () => {
     );
 };
 
-export default Quiz;
-
-
-
-
-
-
+export default QuestionsQuizzPerso;

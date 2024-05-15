@@ -3,6 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import QuizzClassique from '../../Quizz/QuizzClassique/QuizzClassique.jsx';
+import Quizzperso from "../../Quizz/Quizzperso/Quizzperso.jsx";
 
 
 function Accueil() {
@@ -110,6 +111,7 @@ function Accueil() {
               niveau de compréhension pour une meilleure révision.
             </p>
             <div style={{ textAlign: "center" }}>
+            <Link to="/Quizzperso">
               <Button
                 variant="contained"
                 sx={{
@@ -123,6 +125,7 @@ function Accueil() {
               >
                 Lancer le quizz
               </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
