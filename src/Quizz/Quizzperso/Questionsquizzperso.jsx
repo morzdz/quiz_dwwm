@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Button, FormControl, OutlinedInput } from '@mui/material';
 import { QuizzContext } from '../../contexts/QuizContext';
 
-const QuestionsQuizzPerso = () => {
+const QuestionsQuizzPerso = ({ filter }) => {
     const { maData, addOrUpdateResponse } = useContext(QuizzContext);
     const [filteredQuestions, setFilteredQuestions] = useState([]);
     const [activeQuestion, setActiveQuestion] = useState(0);
@@ -12,26 +12,34 @@ const QuestionsQuizzPerso = () => {
     const [correctAnswer, setCorrectAnswer] = useState('');
     const [evalIndex, setEvalIndex] = useState(-1);
     const [localResponses, setLocalResponses] = useState([]);
-    const [quizCompleted, setQuizCompleted] = useState(false);
 
+    //Pour filtrer les questions en fonction de l'evalIndex
     useEffect(() => {
-        const filtered = maData.responses.filter(response => response.evalIndex === 2);
-        setFilteredQuestions(filtered);
-    }, [maData]);
+        let filtered;
+        switch (filter) {
+            case 'non-acquises':
+                filtered = maData.responses.filter(response => response.evalIndex === 0);
+                break;
+            case 'partiellement-acquises':
+                filtered = maData.responses.filter(response => response.evalIndex === 1);
+                break;
+            case 'acquises':
+                filtered = maData.responses.filter(response => response.evalIndex === 2);
+                break;
+            default:
+                filtered = [];
+        }
+        setFilteredQuestions(filtered);// récupère les questions fltrées // met à jour la l'état des questions filtrées
+    }, [maData, filter]);
 
+    //fonction pour cacher le bouton de validation et affciher la réponse correcte
     const onClickValidate = () => {
         setShowValidateButton(false);
         setCorrectAnswer(filteredQuestions[activeQuestion]?.questions.correctAnswer);
     };
 
+    // fonction pour mettre à jour l'état local et passer à la question suivante ou afficher les résultats si c'est la dernière question. Si c'est la dernière réponse cela met aussi à jour le contexte globale 
     const onClickNext = () => {
-        if (activeQuestion !== filteredQuestions.length - 1) {
-            setActiveQuestion(prev => prev + 1);
-            setShowValidateButton(true);
-        } else {
-            setShowResult(true);
-            setQuizCompleted(true); // Marquer le quizz comme terminé
-        }
         const updatedResponses = [...localResponses];
         updatedResponses[activeQuestion] = {
             ...filteredQuestions[activeQuestion],
@@ -39,31 +47,24 @@ const QuestionsQuizzPerso = () => {
             evalIndex: evalIndex
         };
         setLocalResponses(updatedResponses);
-        setUserAnswer('');
+
+        if (activeQuestion !== filteredQuestions.length - 1) {
+            setActiveQuestion(prev => prev + 1);
+            setShowValidateButton(true);
+        } else {
+            setShowResult(true);
+            addOrUpdateResponse(updatedResponses);  // Mise du contexte global si c'est la fin des questions
+        }
+        
+        console.log("réponse locale après question:", updatedResponses);
+
+        setUserAnswer(''); //réinitialisation de la réponse utilisateur et de l'auto-éval.
         setEvalIndex(-1);
     };
 
     const handleSelectEvaluation = (index) => {
         setEvalIndex(index);
     };
-
-    useEffect(() => {
-        console.log("MaData après mise à jour :", maData);
-    }, [maData]);
-
-    useEffect(() => {
-        console.log("Local Responses après mise à jour :", localResponses);
-    }, [localResponses]);
-
-    useEffect(() => {
-        if (quizCompleted) {
-            // Mettre à jour maData.responses avec les données locales
-            const updatedResponses = maData.responses.map((response, index) => {
-                return localResponses[index] ? localResponses[index] : response;
-            });
-            addOrUpdateResponse(updatedResponses);
-        }
-    }, [quizCompleted]);
 
     return (
         <div className="quiz-container">
@@ -116,6 +117,7 @@ const QuestionsQuizzPerso = () => {
                                     id='submit'
                                     onClick={onClickNext}
                                     variant='outlined'
+                                    disabled={evalIndex === -1}
                                 >
                                     {activeQuestion === filteredQuestions.length - 1 ? 'Terminer' : 'Question suivante'}
                                 </Button>

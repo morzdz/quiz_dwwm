@@ -1,19 +1,30 @@
-// QuizzContext.js
-
 import { createContext, useState } from 'react';
 import { quizz } from '../data/Questions';
+
 export const QuizzContext = createContext();
 
 export const QuizzProvider = ({ children }) => {
     const [maData, setMaData] = useState({ responses: [] });
 
     const addOrUpdateResponse = (newResponses) => {
-        // Check if newResponses is an array
         if (Array.isArray(newResponses)) {
-            // Quiz filtré : Mettre à jour maData.responses avec les données de newResponses
-            setMaData({ responses: newResponses });
+            // Cas des réponses filtrées : mise à jour de l'ensemble des réponses
+            setMaData(prevData => ({
+                ...prevData,
+                responses: newResponses.map(newResponse => {
+                    const existingIndex = prevData.responses.findIndex(response => response.question_id === newResponse.question_id);
+                    if (existingIndex !== -1) {
+                        return {
+                            ...prevData.responses[existingIndex],
+                            ...newResponse
+                        };
+                    } else {
+                        return newResponse;
+                    }
+                })
+            }));
         } else {
-            // Quiz habituel : Mettre à jour maData.responses avec la réponse individuelle
+            // Cas des réponses individuelles : mise à jour d'une seule réponse
             const existingIndex = maData.responses.findIndex(response => response.question_id === newResponses.question_id);
 
             if (existingIndex !== -1) {
@@ -40,28 +51,6 @@ export const QuizzProvider = ({ children }) => {
         </QuizzContext.Provider>
     );
 };
-// import { createContext, useState } from 'react';
 
-// // Création du contexte Quiz
-// export const QuizzContext = createContext();
 
-// // Fournisseur de contexte Quiz
-// export const QuizzProvider = ({ children }) => {
-//     // Initialisation des données du quiz
-//     const [responses, setResponses] = useState({});
 
-//     // Fonction pour ajouter ou mettre à jour une réponse dans les données du quiz
-//     const addOrUpdateResponse = (questionId, newResponse) => {
-//         setResponses(prevResponses => ({
-//             ...prevResponses,
-//             [questionId]: newResponse
-//         }));
-//     };
-
-//     // Rendu du fournisseur de contexte avec les données et la fonction de mise à jour
-//     return (
-//         <QuizzContext.Provider value={{ responses, addOrUpdateResponse }}>
-//             {children}
-//         </QuizzContext.Provider>
-//     );
-// };
