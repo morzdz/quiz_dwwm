@@ -1,80 +1,76 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button, FormControl, OutlinedInput } from '@mui/material';
 import { QuizzContext } from '../../contexts/QuizContext';
-import './Quizz.css';
-import { quizz } from '../../data/Questions';
 
-const Quiz = () => {
+const QuestionsQuizzPerso = ({ filter }) => {
     const { maData, addOrUpdateResponse } = useContext(QuizzContext);
-    const { questions } = quizz;
-
+    const [filteredQuestions, setFilteredQuestions] = useState([]);
     const [activeQuestion, setActiveQuestion] = useState(0);
     const [userAnswer, setUserAnswer] = useState('');
     const [showResult, setShowResult] = useState(false);
     const [showValidateButton, setShowValidateButton] = useState(true);
     const [correctAnswer, setCorrectAnswer] = useState('');
-    const [scores, setScores] = useState(Array(quizz.questions.length).fill(0));
-    const [nextButtonDisabled, setNextButtonDisabled] = useState(true);
-    const [selectedEvaluationIndex, setSelectedEvaluationIndex] = useState(-1);
+    const [evalIndex, setEvalIndex] = useState(-1);
+    const [localResponses, setLocalResponses] = useState([]);
 
+    //Pour filtrer les questions en fonction de l'evalIndex
     useEffect(() => {
-        setSelectedEvaluationIndex(0);
-    }, []);
+        let filtered;
+        switch (filter) {
+            case 'non-acquises':
+                filtered = maData.responses.filter(response => response.evalIndex === 0);
+                break;
+            case 'partiellement-acquises':
+                filtered = maData.responses.filter(response => response.evalIndex === 1);
+                break;
+            case 'acquises':
+                filtered = maData.responses.filter(response => response.evalIndex === 2);
+                break;
+            default:
+                filtered = [];
+        }
+        setFilteredQuestions(filtered);// récupère les questions fltrées // met à jour la l'état des questions filtrées
+    }, [maData, filter]);
 
+    //fonction pour cacher le bouton de validation et affciher la réponse correcte
     const onClickValidate = () => {
         setShowValidateButton(false);
-        setCorrectAnswer(questions[activeQuestion].correctAnswer);
+        setCorrectAnswer(filteredQuestions[activeQuestion]?.questions.correctAnswer);
+    };
+
+    // fonction pour mettre à jour l'état local et passer à la question suivante ou afficher les résultats si c'est la dernière question. Si c'est la dernière réponse cela met aussi à jour le contexte globale 
+    const onClickNext = () => {
+        const updatedResponses = [...localResponses];
+        updatedResponses[activeQuestion] = {
+            ...filteredQuestions[activeQuestion],
+            text: userAnswer,
+            evalIndex: evalIndex
+        };
+        setLocalResponses(updatedResponses);
+
+        if (activeQuestion !== filteredQuestions.length - 1) {
+            setActiveQuestion(prev => prev + 1);
+            setShowValidateButton(true);
+        } else {
+            setShowResult(true);
+            addOrUpdateResponse(updatedResponses);  // Mise du contexte global si c'est la fin des questions
+        }
+        
+        console.log("réponse locale après question:", updatedResponses);
+
+        setUserAnswer(''); //réinitialisation de la réponse utilisateur et de l'auto-éval.
+        setEvalIndex(-1);
     };
 
     const handleSelectEvaluation = (index) => {
-        setSelectedEvaluationIndex(index);
-        handleScore(index);
-    };
-
-    const handleScore = (index) => {
-        setScores(prevScores => {
-            const newScores = [...prevScores];
-            newScores[activeQuestion] = index;
-            return newScores;
-        });
-        setNextButtonDisabled(false);
-    };
-
-    const onClickNext = () => {
-        setShowValidateButton(true);
-        setNextButtonDisabled(true);
-        if (activeQuestion !== questions.length - 1) {
-            setActiveQuestion(prev => prev + 1);
-        } else {
-            setShowResult(true);
-        }
-        setUserAnswer('');
-        handleResponse(); // Appel de handleResponse pour mettre à jour maData.responses
-    };
-    
-    const handleResponse = () => {
-        const questionId = questions[activeQuestion].question_id;
-        const response = {
-            question_id: questionId,
-            user_id: 101,
-            text: userAnswer,
-            evalIndex: selectedEvaluationIndex,
-            questions: questions[activeQuestion]
-        };
-
-        console.log("Nouvelle réponse :", response);
-        addOrUpdateResponse(response); // Mettre à jour le contexte global avec la nouvelle réponse
-        console.log("MaData après mise à jour :", maData);
+        setEvalIndex(index);
     };
 
     return (
         <div className="quiz-container">
             {!showResult ? (
                 <div>
-                    <h2>{questions[activeQuestion].question}</h2>
-                    <div style={{ marginBottom: '1rem' }}>
-                        Question {activeQuestion + 1} sur {questions.length}
-                    </div>
+                    <h2>{filteredQuestions[activeQuestion]?.questions.question}</h2>
                     <FormControl id='input' style={{ width: '30rem' }}>
                         <OutlinedInput
                             autoComplete='off'
@@ -108,7 +104,7 @@ const Quiz = () => {
                                 {['Non acquis', 'Partiellement acquis', 'Acquis'].map((evaluation, index) => (
                                     <Button
                                         key={index}
-                                        id={selectedEvaluationIndex === index ? 'selected-answer' : ''}
+                                        id={evalIndex === index ? 'selected-answer' : ''}
                                         onClick={() => handleSelectEvaluation(index)}
                                         variant='outlined'
                                     >
@@ -121,8 +117,9 @@ const Quiz = () => {
                                     id='submit'
                                     onClick={onClickNext}
                                     variant='outlined'
+                                    disabled={evalIndex === -1}
                                 >
-                                    {activeQuestion === questions.length - 1 ? 'Terminer' : 'Question suivante'}
+                                    {activeQuestion === filteredQuestions.length - 1 ? 'Terminer' : 'Question suivante'}
                                 </Button>
                             </div>
                         </div>
@@ -132,11 +129,11 @@ const Quiz = () => {
                 <div className="result">
                     <h3>Résultat</h3>
                     <p>
-                        Nombre total de questions : <span>{questions.length}</span>
+                        Nombre total de questions : <span>{filteredQuestions.length}</span>
                     </p>
                     <p>Votre résultat en détail :</p>
                     <ul>
-                        {maData.responses.map((response, index) => (
+                        {localResponses.map((response, index) => (
                             <li key={index}>
                                 <p>Question {index + 1} :</p>
                                 <p>Réponse : {response.text}</p>
@@ -150,10 +147,4 @@ const Quiz = () => {
     );
 };
 
-export default Quiz;
-
-
-
-
-
-
+export default QuestionsQuizzPerso;
