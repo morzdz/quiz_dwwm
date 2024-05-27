@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, FormControl, OutlinedInput, TextField  } from '@mui/material';
+import { Button, FormControl, OutlinedInput  } from '@mui/material';
 import { quiz } from '../../data/Questions';
 import './Quizz.css';
 
@@ -45,7 +45,6 @@ const Quiz = () => {
     // Fonction appelée lorsque l'utilisateur passe à la question suivante
     const onClickNext = () => {
         setShowValidateButton(true);
-        setCorrectAnswer('');
         setNextButtonDisabled(true);
         if (activeQuestion !== questions.length - 1) {
             setActiveQuestion(prev => prev + 1);
