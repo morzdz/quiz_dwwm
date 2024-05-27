@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Button, FormControl, OutlinedInput } from '@mui/material';
 import { QuizzContext } from '../../contexts/QuizContext';
+import AutoEvaluation from './AutoEvaluation';
 
 const QuestionsQuizzPerso = ({ filter }) => {
     const { maData, addOrUpdateResponse } = useContext(QuizzContext);
@@ -13,8 +14,9 @@ const QuestionsQuizzPerso = ({ filter }) => {
     const [evalIndex, setEvalIndex] = useState(-1);
     const [localResponses, setLocalResponses] = useState([]);
 
-    //Pour filtrer les questions en fonction de l'evalIndex
+    // Filtrer les questions en fonction de l'evalIndex
     useEffect(() => {
+        console.log('Filtrage des questions avec le filtre:', filter);
         let filtered;
         switch (filter) {
             case 'non-acquises':
@@ -29,16 +31,14 @@ const QuestionsQuizzPerso = ({ filter }) => {
             default:
                 filtered = [];
         }
-        setFilteredQuestions(filtered);// récupère les questions fltrées // met à jour la l'état des questions filtrées
+        setFilteredQuestions(filtered);
     }, [maData, filter]);
 
-    //fonction pour cacher le bouton de validation et affciher la réponse correcte
     const onClickValidate = () => {
         setShowValidateButton(false);
         setCorrectAnswer(filteredQuestions[activeQuestion]?.questions.correctAnswer);
     };
 
-    // fonction pour mettre à jour l'état local et passer à la question suivante ou afficher les résultats si c'est la dernière question. Si c'est la dernière réponse cela met aussi à jour le contexte globale 
     const onClickNext = () => {
         const updatedResponses = [...localResponses];
         updatedResponses[activeQuestion] = {
@@ -53,17 +53,13 @@ const QuestionsQuizzPerso = ({ filter }) => {
             setShowValidateButton(true);
         } else {
             setShowResult(true);
-            addOrUpdateResponse(updatedResponses);  // Mise du contexte global si c'est la fin des questions
+            addOrUpdateResponse(updatedResponses);
         }
-        
+
         console.log("réponse locale après question:", updatedResponses);
 
-        setUserAnswer(''); //réinitialisation de la réponse utilisateur et de l'auto-éval.
+        setUserAnswer('');
         setEvalIndex(-1);
-    };
-
-    const handleSelectEvaluation = (index) => {
-        setEvalIndex(index);
     };
 
     return (
@@ -99,19 +95,10 @@ const QuestionsQuizzPerso = ({ filter }) => {
                             <div className='answer-container'>
                                 <p>{correctAnswer}</p>
                             </div>
-                            <p>Comment évaluez-vous votre réponse :</p>
-                            <div id="eval-btn">
-                                {['Non acquis', 'Partiellement acquis', 'Acquis'].map((evaluation, index) => (
-                                    <Button
-                                        key={index}
-                                        id={evalIndex === index ? 'selected-answer' : ''}
-                                        onClick={() => handleSelectEvaluation(index)}
-                                        variant='outlined'
-                                    >
-                                        {evaluation}
-                                    </Button>
-                                ))}
-                            </div>
+                            <AutoEvaluation
+                                evalIndex={evalIndex}
+                                handleSelectEvaluation={setEvalIndex}
+                            />
                             <div className="flex-right">
                                 <Button
                                     id='submit'

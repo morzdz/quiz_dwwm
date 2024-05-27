@@ -1,8 +1,11 @@
+
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, FormControl, OutlinedInput } from '@mui/material';
 import { QuizzContext } from '../../contexts/QuizContext';
+import AutoEvaluation from '../Quizzperso/AutoEvaluation';
 import './Quizz.css';
 import { quizz } from '../../data/Questions';
+
 
 const Quiz = () => {
     const { maData, addOrUpdateResponse } = useContext(QuizzContext);
@@ -104,18 +107,10 @@ const Quiz = () => {
                                 <p>{correctAnswer}</p>
                             </div>
                             <p>Comment évaluez-vous votre réponse :</p>
-                            <div id="eval-btn">
-                                {['Non acquis', 'Partiellement acquis', 'Acquis'].map((evaluation, index) => (
-                                    <Button
-                                        key={index}
-                                        id={selectedEvaluationIndex === index ? 'selected-answer' : ''}
-                                        onClick={() => handleSelectEvaluation(index)}
-                                        variant='outlined'
-                                    >
-                                        {evaluation}
-                                    </Button>
-                                ))}
-                            </div>
+                            <AutoEvaluation // Utilisation du composant AutoEvaluation
+                                selectedEvaluationIndex={selectedEvaluationIndex}
+                                handleSelectEvaluation={handleSelectEvaluation}
+                            />
                             <div className="flex-right">
                                 <Button
                                     id='submit'
@@ -151,9 +146,3 @@ const Quiz = () => {
 };
 
 export default Quiz;
-
-
-
-
-
-
