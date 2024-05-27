@@ -5,28 +5,27 @@ export const QuizzContext = createContext();
 
 export const QuizzProvider = ({ children }) => {
     const [maData, setMaData] = useState({ responses: [] });
-
     const addOrUpdateResponse = (newResponses) => {
         if (Array.isArray(newResponses)) {
             // Cas des réponses filtrées : mise à jour de l'ensemble des réponses
             setMaData(prevData => ({
                 ...prevData,
-                responses: newResponses.map(newResponse => {
-                    const existingIndex = prevData.responses.findIndex(response => response.question_id === newResponse.question_id);
-                    if (existingIndex !== -1) {
+                responses: prevData.responses.map(prevResponse => {
+                    const newResponseIndex = newResponses.findIndex(newResponse => newResponse.question_id === prevResponse.question_id);
+                    if (newResponseIndex !== -1) {
                         return {
-                            ...prevData.responses[existingIndex],
-                            ...newResponse
+                            ...prevResponse,
+                            ...newResponses[newResponseIndex]
                         };
                     } else {
-                        return newResponse;
+                        return prevResponse; // Conserver les réponses existantes
                     }
                 })
             }));
         } else {
             // Cas des réponses individuelles : mise à jour d'une seule réponse
             const existingIndex = maData.responses.findIndex(response => response.question_id === newResponses.question_id);
-
+    
             if (existingIndex !== -1) {
                 setMaData(prevData => ({
                     ...prevData,
