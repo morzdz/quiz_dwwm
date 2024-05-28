@@ -1,11 +1,9 @@
-
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Button, FormControl, OutlinedInput } from '@mui/material';
 import { QuizzContext } from '../../contexts/QuizContext';
 import AutoEvaluation from '../Quizzperso/AutoEvaluation';
 import './Quizz.css';
 import { quizz } from '../../data/Questions';
-
 
 const Quiz = () => {
     const { maData, addOrUpdateResponse } = useContext(QuizzContext);
@@ -16,13 +14,9 @@ const Quiz = () => {
     const [showResult, setShowResult] = useState(false);
     const [showValidateButton, setShowValidateButton] = useState(true);
     const [correctAnswer, setCorrectAnswer] = useState('');
-    const [scores, setScores] = useState(Array(quizz.questions.length).fill(0));
+    const [scores, setScores] = useState(Array(questions.length).fill(0));
     const [nextButtonDisabled, setNextButtonDisabled] = useState(true);
     const [selectedEvaluationIndex, setSelectedEvaluationIndex] = useState(-1);
-
-    useEffect(() => {
-        setSelectedEvaluationIndex(0);
-    }, []);
 
     const onClickValidate = () => {
         setShowValidateButton(false);
@@ -44,6 +38,7 @@ const Quiz = () => {
     };
 
     const onClickNext = () => {
+        setSelectedEvaluationIndex(-1);
         setShowValidateButton(true);
         setNextButtonDisabled(true);
         if (activeQuestion !== questions.length - 1) {
@@ -52,9 +47,9 @@ const Quiz = () => {
             setShowResult(true);
         }
         setUserAnswer('');
-        handleResponse(); // Appel de handleResponse pour mettre à jour maData.responses
+        handleResponse();
     };
-    
+
     const handleResponse = () => {
         const questionId = questions[activeQuestion].question_id;
         const response = {
@@ -66,14 +61,23 @@ const Quiz = () => {
         };
 
         console.log("Nouvelle réponse :", response);
-        addOrUpdateResponse(response); // Mettre à jour le contexte global avec la nouvelle réponse
+        addOrUpdateResponse(response);
         console.log("MaData après mise à jour :", maData);
     };
+
+    const addLeadingZero = (number) => (number > 9 ? number : `0${number}`);
+
+    const userScore = scores.reduce((acc, score) => acc + score, 0);
+    const maxScore = 2 * questions.length;
 
     return (
         <div className="quiz-container">
             {!showResult ? (
                 <div>
+                    <div style={{ width: '1em', position: 'relative', top: '8px', left: '8px' }}>
+                        <span>{addLeadingZero(activeQuestion + 1)}</span>
+                        <span>/{addLeadingZero(questions.length)}</span>
+                    </div>
                     <h2>{questions[activeQuestion].question}</h2>
                     <div style={{ marginBottom: '1rem' }}>
                         Question {activeQuestion + 1} sur {questions.length}
@@ -107,14 +111,16 @@ const Quiz = () => {
                                 <p>{correctAnswer}</p>
                             </div>
                             <p>Comment évaluez-vous votre réponse :</p>
-                            <AutoEvaluation // Utilisation du composant AutoEvaluation
+                            <AutoEvaluation
+                                key={activeQuestion}
                                 selectedEvaluationIndex={selectedEvaluationIndex}
                                 handleSelectEvaluation={handleSelectEvaluation}
                             />
                             <div className="flex-right">
                                 <Button
                                     id='submit'
-                                    onClick={onClickNext}
+                                    onClick={() => onClickNext()}
+                                    disabled={nextButtonDisabled}
                                     variant='outlined'
                                 >
                                     {activeQuestion === questions.length - 1 ? 'Terminer' : 'Question suivante'}
@@ -129,15 +135,45 @@ const Quiz = () => {
                     <p>
                         Nombre total de questions : <span>{questions.length}</span>
                     </p>
-                    <p>Votre résultat en détail :</p>
+                    <p>Votre score : {userScore} / {maxScore}</p>
+                    <p>Votre résultats en détail :</p>
                     <ul>
-                        {maData.responses.map((response, index) => (
-                            <li key={index}>
-                                <p>Question {index + 1} :</p>
-                                <p>Réponse : {response.text}</p>
-                                <p>Évaluation : {['Non acquis', 'Partiellement acquis', 'Acquis'][response.evalIndex]}</p>
+                        {scores.filter(score => score === 0).length > 0 && (
+                            <li>
+                                <p>Nombre de questions non acquises :</p>
+                                <div style={{ display: 'flex', width: '200px' }}>
+                                    <div
+                                        className="non-acquise"
+                                        style={{ width: `${(scores.filter(score => score === 0).length / questions.length) * 100}%` }}
+                                    ><p className='invisible'>{scores.filter(score => score === 0).length}</p></div>
+                                    {scores.filter(score => score === 0).length}
+                                </div>
                             </li>
-                        ))}
+                        )}
+                        {scores.filter(score => score === 1).length > 0 && (
+                            <li>
+                                <p>Nombre de questions partiellement acquises :</p>
+                                <div style={{ display: 'flex', width: '200px' }}>
+                                    <div
+                                        className="partiellement-acquise"
+                                        style={{ width: `${(scores.filter(score => score === 1).length / questions.length) * 100}%` }}
+                                    ><p className='invisible'>{scores.filter(score => score === 1).length}</p></div>
+                                    {scores.filter(score => score === 1).length}
+                                </div>
+                            </li>
+                        )}
+                        {scores.filter(score => score === 2).length > 0 && (
+                            <li>
+                                <p>Nombre de questions acquises :</p>
+                                <div style={{ display: 'flex', width: '200px' }}>
+                                    <div
+                                        className="acquise"
+                                        style={{ width: `${(scores.filter(score => score === 2).length / questions.length) * 100}%` }}
+                                    ><p className='invisible'>{scores.filter(score => score === 2).length}</p></div>
+                                    {scores.filter(score => score === 2).length}
+                                </div>
+                            </li>
+                        )}
                     </ul>
                 </div>
             )}
