@@ -2,12 +2,13 @@ import { useState, useEffect, useContext } from 'react';
 import { Button, FormControl, OutlinedInput } from '@mui/material';
 import { QuizzContext } from '../../contexts/QuizContext';
 import AutoEvaluation from '../Quizzperso/AutoEvaluation';
+
 import './Quizz.css';
-import { quizz } from '../../data/Questions';
 
 const Quiz = () => {
-    const { maData, addOrUpdateResponse } = useContext(QuizzContext);
-    const { questions } = quizz;
+    const { maData, addOrUpdateResponse, quizz, nombreQuestions } = useContext(QuizzContext);
+    const questions = quizz.questions.slice(0, nombreQuestions);
+
 
     const [activeQuestion, setActiveQuestion] = useState(0);
     const [userAnswer, setUserAnswer] = useState('');

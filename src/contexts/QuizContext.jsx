@@ -1,9 +1,17 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { quizz } from '../data/Questions';
 
 export const QuizzContext = createContext();
 
 export const QuizzProvider = ({ children }) => {
+
+    const [nombreQuestions, setNombreQuestions] = useState(20); // Par défaut, 20 questions
+
+
+  const updateNombreQuestions = (nombre) => {
+    setNombreQuestions(nombre);
+  };
+
     const [maData, setMaData] = useState({ responses: [] });
     const addOrUpdateResponse = (newResponses) => {
         if (Array.isArray(newResponses)) {
@@ -45,7 +53,7 @@ export const QuizzProvider = ({ children }) => {
     };
 
     return (
-        <QuizzContext.Provider value={{ maData, addOrUpdateResponse, quizz }}>
+        <QuizzContext.Provider value={{ maData, addOrUpdateResponse, quizz, nombreQuestions, updateNombreQuestions }}>
             {children}
         </QuizzContext.Provider>
     );
