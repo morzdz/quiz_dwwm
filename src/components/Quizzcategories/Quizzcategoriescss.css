@@ -1,0 +1,116 @@
+.quiz-container {
+    max-width: 800px;
+    margin: 6em auto;
+    padding: 1em;
+    text-align: center;
+    -webkit-box-shadow: 4px 4px 10px 4px rgba(52,48,46,0.2); 
+    box-shadow: 4px 4px 10px 4px rgba(52,48,46,0.2);
+    border-radius: 8px;
+}
+
+.answer-container {
+    width: 60%;
+    padding: 8px 0;
+    margin-bottom: 1em;
+    border: 2px solid #FFDB58;
+    border-radius: 4px;
+    margin: auto;
+}
+
+#submit {
+    cursor: pointer;
+    margin: 1em 8px 0 8px;
+    height: 3em;
+    padding: 24px 1em;
+    color: #FEFDFC;
+    background-color: #002626;
+    border: 2px solid #002626;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+#submit:disabled {
+    color: light-dark(
+        rgba(52, 48, 46, 0.3),
+        rgba(52, 48, 46, 1)
+    );
+    border-color: light-dark(
+        rgba(0, 38, 38, 0.3),
+        rgba(0, 38, 38, 1)
+    );
+    background-color: light-dark(
+        rgba(254, 253, 252, 0.3),
+        rgba(254, 253, 252, 1)
+    );
+}
+
+#eval-btn button {
+    font-weight: 500;
+    margin: 8px;
+    height: 2em;
+    padding: 0 1em;
+    color: #34302e;
+    background-color: #FEFDFC;
+    border: 1px solid #34302e;
+    border-radius: 4px;
+}
+
+.flex-right {
+    width: 60%;
+    margin: auto;
+    padding-bottom: 2em;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#input .MuiOutlinedInput-notchedOutline {
+    border-color: #0E4749;
+}
+
+#input .MuiInputLabel-root.Mui-focused, #input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    color: #0E4749;
+}
+
+#eval-btn #selected-answer {
+    color: #FEFDFC;
+    background-color: #0E4749;
+    border: none;
+}
+
+.non-acquise {
+    background-color: #FFDB58; /* Couleur pour les questions non acquises */
+    margin: 0 8px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.partiellement-acquise {
+    background-color: #0E4749; /* Couleur pour les questions partiellement acquises */
+    margin: 0 8px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.acquise {
+    background-color: #002626; /* Couleur pour les questions acquises */
+    margin: 0 8px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.invisible {
+    margin: 0;
+    color: transparent;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+    padding-bottom: 8px;
+}
+
+p {
+    margin: 8px 0;
+}

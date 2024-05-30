@@ -1,8 +1,23 @@
-import { Grid } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
+import { useEffect } from 'react';
+import { Grid, Card, CardContent } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+import { useCategory } from '../Context/CategoriesContext.jsx';
 
 function Quizzperso() {
+  const { selectedCategory, setSelectedCategory } = useCategory();
+  const navigate = useNavigate();
+
+  // Function to update the selected category and navigate to the quiz
+  const handleCategorySelection = (category) => {
+    setSelectedCategory(category);
+    navigate('/quiz');
+  };
+
+  // Effect to display the data stored in the context when the component is mounted
+  useEffect(() => {
+    console.log("Selected Category:", selectedCategory);
+  }, [selectedCategory]);
+
   return (
     <div>
       <h1 style={{ textAlign: "center", color: "#0E4749" }}>
@@ -30,6 +45,7 @@ function Quizzperso() {
                 transform: "scale(0.9)",
               },
             }}
+            onClick={() => handleCategorySelection("Non-acquises")}
           >
             <CardContent>
               <span
@@ -61,6 +77,7 @@ function Quizzperso() {
                 transform: "scale(0.9)",
               },
             }}
+            onClick={() => handleCategorySelection("Acquises")}
           >
             <CardContent>
               <span
@@ -92,6 +109,7 @@ function Quizzperso() {
                 transform: "scale(0.9)",
               },
             }}
+            onClick={() => handleCategorySelection("Partiellement")}
           >
             <CardContent>
               <span
@@ -123,6 +141,7 @@ function Quizzperso() {
                 transform: "scale(0.9)",
               },
             }}
+            onClick={() => handleCategorySelection("Aléatoire")}
           >
             <CardContent>
               <span
@@ -162,6 +181,7 @@ function Quizzperso() {
                 transform: "scale(0.9)",
               },
             }}
+            onClick={() => handleCategorySelection("HTML")}
           >
             <span
               style={{
@@ -191,6 +211,7 @@ function Quizzperso() {
                 transform: "scale(0.9)",
               },
             }}
+            onClick={() => handleCategorySelection("CSS")}
           >
             <span
               style={{
@@ -220,6 +241,7 @@ function Quizzperso() {
                 transform: "scale(0.9)",
               },
             }}
+            onClick={() => handleCategorySelection("Javascript")}
           >
             <span
               style={{
@@ -249,6 +271,7 @@ function Quizzperso() {
                 transform: "scale(0.9)",
               },
             }}
+            onClick={() => handleCategorySelection("ReactJS")}
           >
             <span
               style={{
@@ -278,6 +301,7 @@ function Quizzperso() {
                 transform: "scale(0.9)",
               },
             }}
+            onClick={() => handleCategorySelection("SQL")}
           >
             <span
               style={{
@@ -307,6 +331,7 @@ function Quizzperso() {
                 transform: "scale(0.9)",
               },
             }}
+            onClick={() => handleCategorySelection("NodeJS")}
           >
             <span
               style={{
@@ -315,7 +340,7 @@ function Quizzperso() {
                 fontSize: "1.5rem",
               }}
             >
-              Méthode agile
+              NodeJS
             </span>
           </Card>
         </Grid>
@@ -336,35 +361,7 @@ function Quizzperso() {
                 transform: "scale(0.9)",
               },
             }}
-          >
-            <span
-              style={{
-                color: "white",
-                fontFamily: "ABeeZee",
-                fontSize: "1.5rem",
-              }}
-            >
-              Maquettage
-            </span>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={3}>
-          <Card
-            sx={{
-              height: "100%",
-              backgroundColor: "#002626",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              minHeight: "100px",
-              minWidth: "50px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "scale(0.9)",
-              },
-            }}
+            onClick={() => handleCategorySelection("GIT")}
           >
             <span
               style={{
@@ -383,3 +380,4 @@ function Quizzperso() {
 }
 
 export default Quizzperso;
+
