@@ -1,9 +1,8 @@
-import React, { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Button } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "../../customTheme";
 import './QuizzClassique.css';
-import { QuizzContext } from '../../contexts/QuizContext';
 import Quiz from '../Quizz/Quizz';
 import { quizz } from '../../data/Questions'; 
 
@@ -39,12 +38,12 @@ const QuizzClassique = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div style={{ textAlign: 'center', marginTop: '30px' }}>
+      <div style={{ textAlign: 'center', marginTop: '3em'}}>
         {!startQuizz ? (
           <>
             <h1>Quizz classique</h1>
             <h2>Choisissez le nombre de questions :</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '300px', margin: '0 auto', marginBottom: '40px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '300px', margin: '3em auto' }}>
               <Button variant="contained" onClick={() => userChoice(20)} style={{ marginBottom: '20px', width: '100%', fontSize: '16px', padding: '10px' }}>20 questions</Button>
               <Button variant="contained" onClick={() => userChoice(50)} style={{ marginBottom: '20px', width: '100%', fontSize: '16px', padding: '10px' }}>50 questions</Button>
               <Button variant="contained" onClick={() => userChoice(100)} style={{ marginBottom: '20px', width: '100%', fontSize: '16px', padding: '10px' }}>100 questions</Button>

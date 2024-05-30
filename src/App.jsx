@@ -18,7 +18,15 @@ function App() {
     <QuizzProvider>
       <BrowserRouter>
         <Header />
-        <div id="content" style={{ minHeight: '100vh', overflow: 'auto' }}>
+        <div 
+          id="content" 
+          style={{ 
+            minHeight: '80vh', 
+            fontFamily: 'ABeeZee', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center' 
+          }}>
           <Routes>
             <Route path="/" element={<Accueil />} />
             <Route path="/dashboard" element={<Dashboard />} />

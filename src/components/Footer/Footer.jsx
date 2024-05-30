@@ -1,4 +1,3 @@
-import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -16,25 +15,34 @@ const Footer = () => {
   ];
 
   const footerStyle = {
-    position: 'sticky',
-    bottom: 0,
-    left: 0,
     width: '100%',
     backgroundColor: theme.palette.primary.main,
-    color: 'white',
+    color: theme.palette.common.white,
     textAlign: 'center',
-    padding: '10px 0',
+    padding: '2em 0',
+    marginTop: '4em'
   };
 
   const centerStyle = {
     // display: 'flex',
     justifyContent: 'center',
+    flexWrap: 'wrap'
   };
 
   return (
     <ThemeProvider theme={theme}>
       <div style={footerStyle}>
         <Container maxWidth="lg">
+        <Typography
+            variant="body1"
+            component="div"
+            sx={{
+              color: theme.palette.accent.main
+            }}
+          >
+            "Web-Dev-Quizz c'est le quizz qui permet de réviser la certification
+            de développeur web tout en s'amusant"
+          </Typography>{" "}
           <Toolbar style={centerStyle}>
             {navigation.map((item) => (
               <Button key={item.name} component={Link} to={item.href} color="inherit">{item.name}</Button>

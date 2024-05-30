@@ -2,35 +2,34 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import QuizzClassique from '../../Quizz/QuizzClassique/QuizzClassique.jsx';
-import Quizzperso from "../../Quizz/Quizzperso/Quizzperso.jsx";
+import theme from "../../customTheme";
 
 
 function Accueil() {
   return (
     <div>
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "center", marginTop: '3em' }}>
         <h1
           style={{
-            textAlign: "center",
-            color: "#0E4749",
-            fontFamily: "ABeeZee",
+            color: theme.palette.secondary.main,
           }}
         >
           Titre
         </h1>
         <p
           style={{
-            textAlign: "center",
-            color: "#34302E",
-            fontFamily: "ABeeZee",
-            marginTop: "50px",
+            color: theme.palette.common.black,
+            marginTop: "3em",
+            fontWeight: '600'
           }}
         >
           Que vous soyez un débutant curieux ou un professionnel expérimenté,
           plongez dans notre vaste bibliothèque de questions; <br /> relevez des
-          défis, suivez votre progression et testez vos connaissances sur HTML,
-          CSS, JavaScript, frameworks, bases de données et bien plus encore.
+          défis, suivez votre progression et testez vos connaissances sur 
+            <span style={{color: theme.palette.accent.main, fontSize: '18px'}}> HTML</span>,
+            <span style={{color: theme.palette.accent.main, fontSize: '18px'}}> CSS</span>, 
+            <span style={{color: theme.palette.accent.main, fontSize: '18px'}}> JavaScript</span>, 
+            <span style={{color: theme.palette.accent.main, fontSize: '18px'}}> frameworks</span>, <span style={{color: theme.palette.accent.main, fontSize: '18px'}}> base de données</span> et bien plus encore.
           <br /> Nos quiz sont soigneusement conçus pour couvrir tous les
           aspects essentiels du développement web, <br />
           que vous souhaitiez consolider vos bases, explorer de nouveaux
@@ -39,22 +38,30 @@ function Accueil() {
       </div>
       <div
         style={{
-          margin: "0 25%",
+          margin: "0 auto",
           display: "flex",
-          flexDirection: "row",
+          flexWrap: "wrap",
           justifyContent: "center",
           padding: "2em",
-          gap: "100px",
+          gap: "6em",
           marginTop: "50px",
         }}
       >
-        <Card variant="outlined" sx={{ bgcolor: "#002626" }}>
-          <CardContent>
+        <Card variant="outlined" 
+          sx={{ 
+              bgcolor: theme.palette.primary.main, 
+              minWidth:'300px', 
+              maxWidth:'600px', 
+              height: '320px',
+              display: 'flex',
+              alignItems: 'center'
+            }}>
+          <CardContent sx={{ padding: '0 1em', margin: '0 2em' }}>
             <h2
               style={{
                 textAlign: "center",
-                color: "white",
-                fontFamily: "ABeeZee",
+                color: theme.palette.common.white,
+                paddingBottom: '1em'
               }}
             >
               Quizz classique
@@ -62,8 +69,8 @@ function Accueil() {
             <p
               style={{
                 textAlign: "center",
-                color: "white",
-                fontFamily: "ABeeZee",
+                color: theme.palette.common.white,
+                paddingBottom: '1em'
               }}
             >
               Répondez à un nombre de questions entre 20 et la totalité des
@@ -74,11 +81,12 @@ function Accueil() {
                 <Button
                   variant="contained"
                   sx={{
-                    bgcolor: "#0E4749",
-                    color: "white",
+                    bgcolor: theme.palette.secondary.main,
+                    color: theme.palette.common.white,
                     "&:hover": {
-                      bgcolor: "white",
-                      color: "#002626",
+                      bgcolor: theme.palette.common.white,
+                      color: theme.palette.secondary.main,
+                      fontWeight: '700'
                     },
                   }}
                 >
@@ -89,13 +97,21 @@ function Accueil() {
           </CardContent>
         </Card>
 
-        <Card variant="outlined" sx={{ bgcolor: "#002626" }}>
-          <CardContent>
+        <Card variant="outlined" 
+          sx={{ 
+            bgcolor: theme.palette.primary.main, 
+            minWidth:'300px', 
+            maxWidth:'600px', 
+            height: '320px',
+            display: 'flex',
+            alignItems: 'center',
+          }}>
+          <CardContent sx={{ margin: '0 2em' }}>
             <h2
               style={{
                 textAlign: "center",
-                color: "white",
-                fontFamily: "ABeeZee",
+                color: theme.palette.common.white,
+                paddingBottom: '1em'
               }}
             >
               Quizz personnalisé
@@ -103,8 +119,8 @@ function Accueil() {
             <p
               style={{
                 textAlign: "center",
-                color: "white",
-                fontFamily: "ABeeZee",
+                color: theme.palette.common.white,
+                paddingBottom: '1em'
               }}
             >
               Personnalisez votre quiz en choisissant parmi les thèmes et votre
@@ -115,11 +131,12 @@ function Accueil() {
               <Button
                 variant="contained"
                 sx={{
-                  bgcolor: "#0E4749",
-                  color: "white",
+                  bgcolor: theme.palette.secondary.main,
+                  color: theme.palette.common.white,
                   "&:hover": {
-                    bgcolor: "white",
-                    color: "#002626",
+                    bgcolor: theme.palette.common.white,
+                    color: theme.palette.secondary.main,
+                    fontWeight: '700'
                   },
                 }}
               >

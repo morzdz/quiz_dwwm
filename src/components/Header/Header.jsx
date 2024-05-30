@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -16,8 +15,7 @@ const navigation = [
   { name: "Accueil", href: "/" },
   { name: "Dashboard", href: "/dashboard" },
   { name: "Ressources", href: "/ressources" },
-  { name: "Inscription", href: "/signup" }, 
-  { name: "Connexion", href: "/signin" }, 
+  { name: "Inscription / Connexion", href: "/signup" }, 
 ];
 
 const Header = () => {
@@ -33,19 +31,8 @@ const Header = () => {
       <AppBar position="static">
         <Toolbar>
           <div className="logo-container">
-            <img src={logo} alt="Logo" className="h-8" />
+            <img src={logo} alt="Logo" width={`100`} />
           </div>
-          <Typography
-            variant="body1"
-            component="div"
-            sx={{
-              color: theme.palette.accent.main,
-              marginLeft: "90px",
-            }}
-          >
-            "Web-Dev-Quizz c'est le quizz qui permet de réviser la certification
-            de développeur web tout en s'amusant"
-          </Typography>{" "}
           {isMobile ? (
             <div className="mobile-menu">
               <IconButton

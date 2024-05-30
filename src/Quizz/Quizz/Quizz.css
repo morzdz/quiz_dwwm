@@ -1,7 +1,7 @@
 .quiz-container {
     max-width: 800px;
     margin: 6em auto;
-    padding: 1em;
+    padding: 1em 0;
     text-align: center;
     -webkit-box-shadow: 4px 4px 10px 4px rgba(52,48,46,0.2); 
     box-shadow: 4px 4px 10px 4px rgba(52,48,46,0.2);
@@ -55,20 +55,20 @@
     border-radius: 4px;
 }
 
-.flex-right {
-    width: 60%;
-    margin: auto;
-    padding-bottom: 2em;
-    display: flex;
-    justify-content: flex-end;
-}
-
 #input .MuiOutlinedInput-notchedOutline {
     border-color: #0E4749;
 }
 
 #input .MuiInputLabel-root.Mui-focused, #input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
     color: #0E4749;
+}
+
+#eval-btn {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #eval-btn #selected-answer {
@@ -111,6 +111,10 @@ li {
     padding-bottom: 8px;
 }
 
+.result p {
+    margin-bottom: 1em;
+}
+
 p {
-    margin: 8px 0;
+    margin: 8px;
 }
