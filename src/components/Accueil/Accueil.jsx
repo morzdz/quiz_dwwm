@@ -8,29 +8,24 @@ import theme from "../../customTheme";
 function Accueil() {
   return (
     <div>
-      <div style={{ textAlign: "center", marginTop: '3em' }}>
-        <h1
-          style={{
-            color: theme.palette.secondary.main,
-          }}
-        >
-          Titre
-        </h1>
+      <div style={{ textAlign: "center", marginTop: '2em' }}>
         <p
           style={{
             color: theme.palette.common.black,
-            marginTop: "3em",
+            margin: "3em",
+            fontSize: '18px',
             fontWeight: '600'
           }}
         >
           Que vous soyez un débutant curieux ou un professionnel expérimenté,
           plongez dans notre vaste bibliothèque de questions; <br /> relevez des
           défis, suivez votre progression et testez vos connaissances sur 
-            <span style={{color: theme.palette.accent.main, fontSize: '18px'}}> HTML</span>,
-            <span style={{color: theme.palette.accent.main, fontSize: '18px'}}> CSS</span>, 
-            <span style={{color: theme.palette.accent.main, fontSize: '18px'}}> JavaScript</span>, 
-            <span style={{color: theme.palette.accent.main, fontSize: '18px'}}> frameworks</span>, <span style={{color: theme.palette.accent.main, fontSize: '18px'}}> base de données</span> et bien plus encore.
-          <br /> Nos quiz sont soigneusement conçus pour couvrir tous les
+            <span style={{color: theme.palette.accent.main, fontSize: '24px'}}> HTML</span>,
+            <span style={{color: theme.palette.accent.main, fontSize: '24px'}}> CSS</span>, 
+            <span style={{color: theme.palette.accent.main, fontSize: '24px'}}> JavaScript</span>, 
+            <span style={{color: theme.palette.accent.main, fontSize: '24px'}}> frameworks</span>, 
+            <span style={{color: theme.palette.accent.main, fontSize: '24px'}}> base de données </span> 
+            et bien plus encore.<br /> Nos quiz sont soigneusement conçus pour couvrir tous les
           aspects essentiels du développement web, <br />
           que vous souhaitiez consolider vos bases, explorer de nouveaux
           concepts ou vous préparer à un entretien.
@@ -42,8 +37,9 @@ function Accueil() {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
+          alignItems: 'center',
           padding: "2em",
-          gap: "6em",
+          gap: "1em",
           marginTop: "50px",
         }}
       >

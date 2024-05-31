@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Doughnut, Bar } from "react-chartjs-2";
 import { Grid, Paper, List, ListItem, ListItemText } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
@@ -78,24 +78,28 @@ const Dashboard = () => {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <h1 style={{ textAlign: "center", marginTop: "30px" }}>Dashboard</h1>
-        <Grid container spacing={8}>
-          <Grid item xs={4}>
+        <h1 style={{ textAlign: "center"}}>Dashboard</h1>
+        <Grid container
+          justifyContent="center"
+          alignItems="flex-start"
+          gap="1em"
+        >
+          <Grid xs={10} sm={6} md={4}>
             <Paper elevation={3}>
               <h2 style={{ textAlign: "center" }}>Progression (questions traitées)</h2>
-              <Doughnut data={questionsData} />
+              <Doughnut data={questionsData} style={{paddingBottom: '1em'}}/>
             </Paper>
           </Grid>
-          <Grid item xs={6}>
-            <Paper elevation={3}>
-              <h2 style={{ textAlign: "center" }}>Résultats (thèmes)</h2>
-              <Bar data={resultsData} />
-            </Paper>
-          </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={10} sm={2} md={2}>
             <Paper elevation={3}>
               <h2 style={{ textAlign: "center" }}>Conseils de révision</h2>
               <List>{revisionAdvice}</List>
+            </Paper>
+          </Grid>
+          <Grid item xs={10} sm={8} md={6}>
+            <Paper elevation={3}>
+              <h2 style={{ textAlign: "center" }}>Résultats (thèmes)</h2>
+              <Bar data={resultsData} />
             </Paper>
           </Grid>
         </Grid>

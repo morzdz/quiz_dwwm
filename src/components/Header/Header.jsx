@@ -29,12 +29,20 @@ const Header = () => {
   return (
     <ThemeProvider theme={theme}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar sx={{justifyContent: 'space-between'}}>
           <div className="logo-container">
             <img src={logo} alt="Logo" width={`100`} />
           </div>
           {isMobile ? (
-            <div className="mobile-menu">
+            <div 
+              className="mobile-menu" 
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'flex-end',
+                width: '35%',
+                padding: '1em',
+              }}>
               <IconButton
                 size="large"
                 edge="end"
