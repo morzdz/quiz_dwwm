@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Doughnut, Bar } from "react-chartjs-2";
 import { Grid, Paper, List, ListItem, ListItemText } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
@@ -48,7 +48,7 @@ const Dashboard = () => {
     datasets: [
       {
         data: [acquired, partiallyAcquired, notAcquired],
-        backgroundColor: ["#FFCE56", "#0E4749", "#002626"],
+        backgroundColor: ["#FFCE56", "#0E4749", "#FF6384"],
       },
     ],
   };
@@ -59,12 +59,12 @@ const Dashboard = () => {
     datasets: [
       {
         label: "Acquises",
-        backgroundColor: "#36A2EB",
+        backgroundColor: "#FFCE56",
         data: categories.map(category => countByCategoryAndEvalIndex(category, 2)),
       },
       {
         label: "Partiellement acquises",
-        backgroundColor: "#FFCE56",
+        backgroundColor: "#0E4749",
         data: categories.map(category => countByCategoryAndEvalIndex(category, 1)),
       },
       {
@@ -83,7 +83,7 @@ const Dashboard = () => {
           <Grid item xs={4}>
             <Paper elevation={3}>
               <h2 style={{ textAlign: "center" }}>Progression (questions traitées)</h2>
-              <Doughnut data={questionsData} />
+              <Doughnut data={questionsData} style={{paddingBottom: '1em'}}/>
             </Paper>
           </Grid>
           <Grid item xs={6}>

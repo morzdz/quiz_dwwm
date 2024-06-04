@@ -12,6 +12,7 @@ import QuizzClassique from './Quizz/QuizzClassique/QuizzClassique.jsx';
 import Quizzperso from "./Quizz/Quizzperso/Quizzperso.jsx";
 import Questionsquizzperso from "./Quizz/Quizzperso/Questionsquizzperso.jsx";
 import { QuizzProvider } from './contexts/QuizContext';
+import Faq from './components/Faq/Faq.jsx';
 
 function App() {
   return (
@@ -23,13 +24,12 @@ function App() {
             <Route path="/" element={<Accueil />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/ressources" element={<Ressources />} />
+            <Route path="/FAQ" element={<Faq />} />
             <Route path="/signup" element={<Sign_Up />} />
             <Route path="/signin" element={<Sign_In />} />
             <Route path="/QuizzClassique" element={<QuizzClassique />} />
             <Route path="/Quizzperso" element={<Quizzperso />} />
-            <Route path="/Questionsquizzperso/acquises" element={<Questionsquizzperso filter="acquises" />} />
-            <Route path="/Questionsquizzperso/partiellement-acquises" element={<Questionsquizzperso filter="partiellement-acquises" />} />
-            <Route path="/Questionsquizzperso/non-acquises" element={<Questionsquizzperso filter="non-acquises" />} />
+            <Route path="/Questionsquizzperso" element={<Questionsquizzperso />} />
             <Route path="/Quizz" element={<Quizz />} />
           </Routes>
         </div>

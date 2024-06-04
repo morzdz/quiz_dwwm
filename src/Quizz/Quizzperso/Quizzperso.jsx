@@ -1,92 +1,31 @@
-import { Link } from "react-router-dom";
-import { Grid, Button } from "@mui/material";
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Grid, Button, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { QuizzContext } from '../../contexts/QuizContext';
 
 function Quizzperso() {
+  const [autoEvalIndex, setAutoEvalIndex] = useState('');
+  const [category, setCategory] = useState('');
+  const { updateFilters } = useContext(QuizzContext);
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    updateFilters(autoEvalIndex, category);
+    navigate('/Questionsquizzperso');
+  };
+
   return (
     <div>
-      <h1 style={{ textAlign: "center", color: "#0E4749" }}>
-        Quizz personnalisé
-      </h1>
-
-      {/* SECTION PERSO */}
-
+      <h1 style={{ textAlign: "center", color: "#0E4749" }}>Quizz personnalisé</h1>
+      
       <h1 style={{ color: "#0E4749" }}>Difficulté des questions</h1>
-
+      
       <Grid container spacing={2} justifyContent="center">
-        <Grid item xs={12} sm={6} md={3}>
-          <Link to="/Questionsquizzperso/non-acquises" style={{ textDecoration: "none" }}>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "#002626",
-                color: "white",
-                fontFamily: "ABeeZee",
-                fontSize: "1.5rem",
-                minHeight: "100px",
-                minWidth: "50px",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  transform: "scale(0.9)",
-                },
-              }}
-            >
-              Non-acquises
-            </Button>
-          </Link>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={3}>
-          <Link to="/Questionsquizzperso/acquises" style={{ textDecoration: "none" }}>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "#002626",
-                color: "white",
-                fontFamily: "ABeeZee",
-                fontSize: "1.5rem",
-                minHeight: "100px",
-                minWidth: "50px",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  transform: "scale(0.9)",
-                },
-              }}
-            >
-              Acquises
-            </Button>
-          </Link>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={3}>
-          <Link to="/Questionsquizzperso/partiellement-acquises" style={{ textDecoration: "none" }}>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "#002626",
-                color: "white",
-                fontFamily: "ABeeZee",
-                fontSize: "1.5rem",
-                minHeight: "100px",
-                minWidth: "50px",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  transform: "scale(0.9)",
-                },
-              }}
-            >
-              Partiellement
-            </Button>
-          </Link>
-        </Grid>
-
         <Grid item xs={12} sm={6} md={3}>
           <Button
             variant="contained"
             sx={{
-              backgroundColor: "#002626",
+              backgroundColor: autoEvalIndex === 'non-acquises' ? "#0E4749" : "#002626",
               color: "white",
               fontFamily: "ABeeZee",
               fontSize: "1.5rem",
@@ -98,186 +37,125 @@ function Quizzperso() {
                 transform: "scale(0.9)",
               },
             }}
+            onClick={() => setAutoEvalIndex('non-acquises')}
+          >
+            Non-acquises
+          </Button>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: autoEvalIndex === 'acquises' ? "#0E4749" : "#002626",
+              color: "white",
+              fontFamily: "ABeeZee",
+              fontSize: "1.5rem",
+              minHeight: "100px",
+              minWidth: "50px",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                transform: "scale(0.9)",
+              },
+            }}
+            onClick={() => setAutoEvalIndex('acquises')}
+          >
+            Acquises
+          </Button>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: autoEvalIndex === 'partiellement-acquises' ? "#0E4749" : "#002626",
+              color: "white",
+              fontFamily: "ABeeZee",
+              fontSize: "1.5rem",
+              minHeight: "100px",
+              minWidth: "50px",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                transform: "scale(0.9)",
+              },
+            }}
+            onClick={() => setAutoEvalIndex('partiellement-acquises')}
+          >
+            Partiellement
+          </Button>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: autoEvalIndex === 'aleatoire' ? "#0E4749" : "#002626",
+              color: "white",
+              fontFamily: "ABeeZee",
+              fontSize: "1.5rem",
+              minHeight: "100px",
+              minWidth: "50px",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                transform: "scale(0.9)",
+              },
+            }}
+            onClick={() => setAutoEvalIndex('aleatoire')}
           >
             Aléatoire
           </Button>
         </Grid>
       </Grid>
 
-      {/* SECTION CATEGORIES */}
-
-      <Grid item xs={12} sm={6} md={6}>
-        <h1 style={{ color: "#0E4749" }}>Catégories</h1>
-      </Grid>
+      <h1 style={{ color: "#0E4749", marginTop: "20px" }}>Catégories</h1>
 
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12} sm={6} md={3}>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#002626",
-              color: "white",
-              fontFamily: "ABeeZee",
-              fontSize: "1.5rem",
-              minHeight: "100px",
-              minWidth: "50px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "scale(0.9)",
-              },
-            }}
-          >
-            HTML
-          </Button>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="category-select-label">Catégorie</InputLabel>
+            <Select
+              labelId="category-select-label"
+              id="category-select"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              label="Catégorie"
+            >
+              <MenuItem value="HTML">HTML</MenuItem>
+              <MenuItem value="CSS">CSS</MenuItem>
+              <MenuItem value="JavaScript">JavaScript</MenuItem>
+              <MenuItem value="ReactJS">React</MenuItem>
+              <MenuItem value="SQL">SQL</MenuItem>
+              <MenuItem value="Méthode Agile">Méthode agile</MenuItem>
+              <MenuItem value="Maquettage/Prototypage">Maquettage</MenuItem>
+              <MenuItem value="Méthode Merise">Méthode Merise</MenuItem>
+            </Select>
+          </FormControl>
         </Grid>
+      </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#002626",
-              color: "white",
-              fontFamily: "ABeeZee",
-              fontSize: "1.5rem",
-              minHeight: "100px",
-              minWidth: "50px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "scale(0.9)",
-              },
-            }}
-          >
-            CSS
-          </Button>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={3}>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#002626",
-              color: "white",
-              fontFamily: "ABeeZee",
-              fontSize: "1.5rem",
-              minHeight: "100px",
-              minWidth: "50px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "scale(0.9)",
-              },
-            }}
-          >
-            JavaScript
-          </Button>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={3}>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#002626",
-              color: "white",
-              fontFamily: "ABeeZee",
-              fontSize: "1.5rem",
-              minHeight: "100px",
-              minWidth: "50px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "scale(0.9)",
-              },
-            }}
-          >
-            React
-          </Button>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={3}>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#002626",
-              color: "white",
-              fontFamily: "ABeeZee",
-              fontSize: "1.5rem",
-              minHeight: "100px",
-              minWidth: "50px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "scale(0.9)",
-              },
-            }}
-          >
-            SQL
-          </Button>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={3}>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#002626",
-              color: "white",
-              fontFamily: "ABeeZee",
-              fontSize: "1.5rem",
-              minHeight: "100px",
-              minWidth: "50px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "scale(0.9)",
-              },
-            }}
-          >
-            Méthode agile
-          </Button>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={3}>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#002626",
-              color: "white",
-              fontFamily: "ABeeZee",
-              fontSize: "1.5rem",
-              minHeight: "100px",
-              minWidth: "50px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "scale(0.9)",
-              },
-            }}
-          >
-            Maquettage
-          </Button>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={3}>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#002626",
-              color: "white",
-              fontFamily: "ABeeZee",
-              fontSize: "1.5rem",
-              minHeight: "100px",
-              minWidth: "50px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "scale(0.9)",
-              },
-            }}
-          >
-            Méthode Merise
-          </Button>
-        </Grid>
+      <Grid container justifyContent="center" style={{ marginTop: "20px" }}>
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: "#002626",
+            color: "white",
+            fontFamily: "ABeeZee",
+            fontSize: "1.5rem",
+            minHeight: "50px",
+            minWidth: "200px",
+            cursor: "pointer",
+            transition: "all 0.3s ease",
+            "&:hover": {
+              transform: "scale(0.9)",
+            },
+          }}
+          onClick={handleSubmit}
+        >
+          Valider
+        </Button>
       </Grid>
     </div>
   );

@@ -9,7 +9,7 @@ import Quizzperso from "../../Quizz/Quizzperso/Quizzperso.jsx";
 function Accueil() {
   return (
     <div>
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "center", marginTop: '2em' }}>
         <h1
           style={{
             textAlign: "center",
@@ -17,10 +17,12 @@ function Accueil() {
             fontFamily: "ABeeZee",
           }}
         >
-          Titre
+          [ Hello World  ]
         </h1>
         <p
           style={{
+            margin: "3em",
+            fontSize: '18px',
             textAlign: "center",
             color: "#34302E",
             fontFamily: "ABeeZee",
@@ -28,7 +30,8 @@ function Accueil() {
           }}
         >
           Que vous soyez un débutant curieux ou un professionnel expérimenté,
-          plongez dans notre vaste bibliothèque de questions; <br /> relevez des
+          plongez da
+          ns notre vaste bibliothèque de questions; <br /> relevez des
           défis, suivez votre progression et testez vos connaissances sur HTML,
           CSS, JavaScript, frameworks, bases de données et bien plus encore.
           <br /> Nos quiz sont soigneusement conçus pour couvrir tous les
@@ -43,8 +46,9 @@ function Accueil() {
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
+          alignItems: 'center',
           padding: "2em",
-          gap: "100px",
+          gap: "1em",
           marginTop: "50px",
         }}
       >

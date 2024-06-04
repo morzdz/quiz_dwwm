@@ -12,7 +12,7 @@ const Footer = () => {
     { name: 'Accueil', href: '/' },
     { name: 'Dashboard', href: '/dashboard' },
     { name: 'Ressources', href: '/ressources' },
-    { name: 'Conditions d\'utilisation', href: '/conditions' },
+    { name: 'FAQ', href: '/faq' },
   ];
 
   const footerStyle = {

@@ -1,0 +1,21 @@
+.faq-container {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    text-align: left;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .faq-container h4 {
+    margin-bottom: 20px;
+  }
+  
+  .MuiAccordion-root {
+    margin-bottom: 10px;
+  }
+  
+  .MuiTypography-root {
+    font-family: 'Roboto', sans-serif;
+  }

@@ -1,20 +1,25 @@
-import { createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { quizz } from '../data/Questions';
 
 export const QuizzContext = createContext();
 
 export const QuizzProvider = ({ children }) => {
-    // const [nombreQuestions, setNombreQuestions] = useState(20); 
-
-    // const updateNombreQuestions = (nombre) => {
-    //     setNombreQuestions(nombre);
-    // }; pour passer le système de nombre de questions dans le contexts
-
     const [maData, setMaData] = useState({ responses: [] });
+    const [autoEvalIndex, setAutoEvalIndex] = useState('');
+    const [category, setCategory] = useState('');
+    const [nombreQuestions, setNombreQuestions] = useState(10);
+
+    const updateFilters = (evalIndex, category) => {
+        setAutoEvalIndex(evalIndex);
+        setCategory(category);
+    };
+
+    const updateNombreQuestions = (number) => {
+        setNombreQuestions(number);
+    };
 
     const addOrUpdateResponse = (newResponses) => {
         if (Array.isArray(newResponses)) {
-            // Cas des réponses filtrées : mise à jour de l'ensemble des réponses
             setMaData(prevData => ({
                 ...prevData,
                 responses: prevData.responses.map(prevResponse => {
@@ -25,14 +30,12 @@ export const QuizzProvider = ({ children }) => {
                             ...newResponses[newResponseIndex]
                         };
                     } else {
-                        return prevResponse; // Conserver les réponses existantes
+                        return prevResponse;
                     }
                 })
             }));
         } else {
-            // Cas des réponses individuelles : mise à jour d'une seule réponse
             const existingIndex = maData.responses.findIndex(response => response.question_id === newResponses.question_id);
-
             if (existingIndex !== -1) {
                 setMaData(prevData => ({
                     ...prevData,
@@ -51,10 +54,24 @@ export const QuizzProvider = ({ children }) => {
         }
     };
 
+    const getFilteredQuestions = () => {
+        const filteredQuestions = quizz.questions.filter(question => {
+            const response = maData.responses.find(response => response.question_id === question.question_id);
+            const evalMatch = autoEvalIndex ? response?.evalIndex === parseInt(autoEvalIndex, 10) : true;
+            const categoryMatch = category ? question.category === category : true;
+            return evalMatch && categoryMatch;
+        });
+
+        if (autoEvalIndex === 'aleatoire') {
+            return filteredQuestions.sort(() => 0.5 - Math.random()).slice(0, nombreQuestions);
+        }
+
+        return filteredQuestions.slice(0, nombreQuestions);
+    };
+
     return (
-        <QuizzContext.Provider value={{ maData, addOrUpdateResponse, quizz}}>
+        <QuizzContext.Provider value={{ maData, autoEvalIndex, category, nombreQuestions, updateFilters, updateNombreQuestions, addOrUpdateResponse, getFilteredQuestions }}>
             {children}
         </QuizzContext.Provider>
     );
 };
-//pour passer le systeme de nombre de questions par quizz classique dans le contexts ajouter nombreQuestions, updateNombreQuestions 
